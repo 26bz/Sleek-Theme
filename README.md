@@ -8,6 +8,9 @@ Thank you for choosing the Sleek Theme! This theme is designed to enhance the lo
 2. Enable the theme via the admin UI.
 3. You're all set—enjoy the sleek design!
 
+## Updates
+Be sure to ask in the Discord if the theme is yet to be supported for any new releases of paymenter or if you encounter any issues.
+
 ## Support
 
 If you need assistance, feel free to reach out:
