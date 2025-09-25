@@ -60,19 +60,18 @@
             </div>
         </div>
 
-        Service Details Grid <div class="grid md:grid-cols-2 gap-8">
-            Left Column: Service Details <div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
                 <h2 class="text-lg font-semibold mb-4">{{ __('services.product_details') }}</h2>
 
                 <div class="space-y-4">
-                    Service Details List <div
-                        class="bg-background rounded-lg border border-neutral/10 divide-y divide-neutral/10">
-                        Price <div class="flex justify-between py-3 px-4">
+                    <div class="bg-background rounded-lg border border-neutral/10 divide-y divide-neutral/10">
+                        <div class="flex justify-between py-3 px-4">
                             <span class="text-sm text-base/70">{{ __('services.price') }}</span>
                             <span class="font-medium text-primary">{{ $service->formattedPrice }}</span>
                         </div>
 
-                        Billing Cycle @if ($service->plan->type == 'recurring')
+                        @if ($service->plan->type == 'recurring')
                             <div class="flex justify-between py-3 px-4">
                                 <span class="text-sm text-base/70">{{ __('services.billing_cycle') }}</span>
                                 <span
@@ -85,14 +84,14 @@
                                     ]) }}</span>
                             </div>
 
-                            Expiration Date <div class="flex justify-between py-3 px-4">
+                            <div class="flex justify-between py-3 px-4">
                                 <span class="text-sm text-base/70">{{ __('services.expires_at') }}</span>
                                 <span
                                     class="font-medium">{{ $service->expires_at ? $service->expires_at->format('M d, Y') : 'N/A' }}</span>
                             </div>
                         @endif
 
-                        Custom Fields @foreach ($fields as $field)
+                        @foreach ($fields as $field)
                             <div class="flex justify-between py-3 px-4">
                                 <span class="text-sm text-base/70">{{ $field['label'] }}</span>
                                 <span class="font-medium">{{ $field['text'] }}</span>
@@ -102,11 +101,11 @@
                 </div>
             </div>
 
-            Right Column: Actions @if ($service->cancellable || $service->upgradable || count($buttons) > 0)
+            @if ($service->cancellable || $service->upgradable || count($buttons) > 0)
                 <div>
                     <h2 class="text-lg font-semibold mb-4">{{ __('services.actions') }}</h2>
 
-                    Primary Actions <div class="flex flex-wrap gap-3 mb-4">
+                    <div class="flex flex-wrap gap-3 mb-4">
                         @if ($service->upgradable)
                             <a href="{{ route('services.upgrade', $service->id) }}">
                                 <x-button.primary class="flex items-center gap-2">
@@ -135,7 +134,7 @@
                         @endif
                     </div>
 
-                    Additional Action Buttons @if (count($buttons) > 0)
+                    @if (count($buttons) > 0)
                         <div class="bg-background rounded-lg border border-neutral/10 p-4">
                             <h3 class="text-sm font-medium mb-3">{{ __('services.additional_actions') }}</h3>
                             <div class="flex flex-wrap gap-2">
@@ -163,7 +162,7 @@
         </div>
     </div>
 
-    Cancellation Modal @if ($showCancel)
+    @if ($showCancel)
         <x-modal open="true" title="{{ __('services.cancellation', ['service' => $service->product->name]) }}"
             width="max-w-3xl">
             <livewire:services.cancel :service="$service" />
@@ -178,9 +177,9 @@
         </x-modal>
     @endif
 
-    Extension Views @if (count($views) > 0)
+    @if (count($views) > 0)
         <div class="bg-background-secondary border border-neutral/20 rounded-xl shadow-sm overflow-hidden">
-            Tabs Navigation @if (count($views) > 1)
+            @if (count($views) > 1)
                 <div class="border-b border-neutral/10">
                     <div class="flex overflow-x-auto">
                         @foreach ($views as $view)
@@ -194,12 +193,12 @@
                 </div>
             @endif
 
-            View Content <div class="p-6">
-                Loading Spinner <div class="flex justify-center py-8" wire:loading wire:target="changeView">
+            <div class="p-6">
+                <div class="flex justify-center py-8" wire:loading wire:target="changeView">
                     <x-loading target="changeView" />
                 </div>
 
-                View Content <div wire:loading.remove wire:target="changeView">
+                <div wire:loading.remove wire:target="changeView">
                     {!! $extensionView !!}
                 </div>
             </div>

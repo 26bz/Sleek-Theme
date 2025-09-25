@@ -9,6 +9,30 @@ document.addEventListener('livewire:init', () => {
     });
   });
 });
+
+let currentBreakpoint = window.innerWidth < 768 ? 'mobile' : 'desktop';
+
+window.addEventListener('resize', () => {
+  const newBreakpoint = window.innerWidth < 768 ? 'mobile' : 'desktop';
+
+  if (newBreakpoint !== currentBreakpoint) {
+    currentBreakpoint = newBreakpoint;
+
+    document.querySelectorAll('[x-data]').forEach((el) => {
+      if (el.__x) {
+        el.__x.$nextTick(() => {
+          el.__x.updateElements(el);
+        });
+      }
+    });
+
+    window.dispatchEvent(
+      new CustomEvent('breakpoint-changed', {
+        detail: { breakpoint: currentBreakpoint },
+      })
+    );
+  }
+});
 Alpine.store('notifications', {
   init() {
     Livewire.on('notify', (e) => {
