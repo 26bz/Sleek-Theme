@@ -5,11 +5,7 @@
         <div>
             <div class="flex items-center gap-2">
                 <a href="{{ route('tickets') }}" class="text-base/70 hover:text-primary transition-colors" wire:navigate>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
+                    <x-ri-arrow-left-line class="size-5" />
                 </a>
                 <h1 class="text-2xl font-bold">{{ $ticket->subject }}</h1>
             </div>
@@ -21,52 +17,28 @@
             @if ($ticket->status == 'open')
                 <span
                     class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-full border border-neutral/20 bg-neutral/5 text-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" />
-                    </svg> Open
+                    <x-ri-checkbox-circle-fill class="mr-1.5 size-4" /> Open
                 </span>
             @elseif($ticket->status == 'closed')
                 <span
                     class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-full border border-neutral/20 bg-neutral/5 text-error">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-11.414L9.172 7.757 7.757 9.172 10.586 12l-2.829 2.828 1.415 1.415L12 13.414l2.828 2.829 1.415-1.415L13.414 12l2.829-2.828-1.415-1.415L12 10.586z" />
-                    </svg> Closed
+                    <x-ri-close-circle-fill class="mr-1.5 size-4" /> Closed
                 </span>
             @elseif($ticket->status == 'replied')
                 <span
                     class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-full border border-neutral/20 bg-neutral/5 text-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-6c-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4s4-1.79 4-4h2c0 3.314-2.686 6-6 6zm-3-8.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm6 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                    </svg> Replied
+                    <x-ri-chat-smile-2-fill class="mr-1.5 size-4" /> Replied
                 </span>
             @endif
 
             <span
                 class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-full border border-neutral/20 bg-neutral/5 text-base/70">
                 @if ($ticket->priority == 'high')
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4 text-error" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12.866 3l9.526 16.5a1 1 0 01-.866 1.5H2.474a1 1 0 01-.866-1.5L11.134 3a1 1 0 011.732 0zM11 16v2h2v-2h-2zm0-7v5h2V9h-2z" />
-                    </svg>
+                    <x-ri-alarm-warning-fill class="mr-1.5 size-4 text-error" />
                 @elseif($ticket->priority == 'medium')
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4 text-warning" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm3.536 5.05L10.586 12 12 13.414l4.95-4.95-1.414-1.414z" />
-                    </svg>
+                    <x-ri-timer-2-fill class="mr-1.5 size-4 text-warning" />
                 @else
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 size-4 text-info" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z" />
-                    </svg>
+                    <x-ri-time-fill class="mr-1.5 size-4 text-info" />
                 @endif
                 {{ ucfirst($ticket->priority) }} Priority
             </span>
@@ -108,23 +80,11 @@
                         <h4 class="text-xs font-medium text-base/60 uppercase mb-1">Priority</h4>
                         <div class="flex items-center gap-2">
                             @if ($ticket->priority == 'high')
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-error" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M12.866 3l9.526 16.5a1 1 0 01-.866 1.5H2.474a1 1 0 01-.866-1.5L11.134 3a1 1 0 011.732 0zM11 16v2h2v-2h-2zm0-7v5h2V9h-2z" />
-                                </svg>
+                                <x-ri-alarm-warning-fill class="size-4 text-error" />
                             @elseif($ticket->priority == 'medium')
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-warning" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm3.536 5.05L10.586 12 12 13.414l4.95-4.95-1.414-1.414z" />
-                                </svg>
+                                <x-ri-timer-2-fill class="size-4 text-warning" />
                             @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-info" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z" />
-                                </svg>
+                                <x-ri-time-fill class="size-4 text-info" />
                             @endif
                             <p class="font-medium">{{ ucfirst($ticket->priority) }}</p>
                         </div>
@@ -174,11 +134,7 @@
                                                 @if ($message->user_id !== $ticket->user_id)
                                                     <span
                                                         class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-neutral/5 text-primary border border-neutral/10">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 size-3"
-                                                            fill="currentColor" viewBox="0 0 24 24">
-                                                            <path
-                                                                d="M21 8a2 2 0 012 2v4a2 2 0 01-2 2h-1.062A8.001 8.001 0 0112 23v-2a6 6 0 006-6V9A6 6 0 106 9v7H3a2 2 0 01-2-2v-4a2 2 0 012-2h1.062a8.001 8.001 0 0115.876 0H21zM7.76 15.785l1.06-1.696A5.972 5.972 0 0012 15a5.972 5.972 0 003.18-.911l1.06 1.696A7.963 7.963 0 0112 17a7.963 7.963 0 01-4.24-1.215z" />
-                                                        </svg> Staff
+                                                        <x-ri-customer-service-fill class="mr-1 size-3" /> Staff
                                                     </span>
                                                 @endif
                                             </div>
@@ -205,21 +161,9 @@
                                                     <a href="{{ route('tickets.attachments.show', $attachment) }}"
                                                         class="text-sm rounded-lg bg-neutral/5 border border-neutral/10 flex items-center gap-2 px-2.5 py-1 hover:bg-neutral/10 transition-colors">
                                                         @if ($attachment->canPreview())
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="size-4 text-primary" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                            </svg>
+                                                            <x-ri-image-line class="size-4 text-primary" />
                                                         @else
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="size-4 text-primary" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                            </svg>
+                                                            <x-ri-file-line class="size-4 text-primary" />
                                                         @endif
                                                         <span>{{ $attachment->filename }}</span>
                                                     </a>
@@ -278,13 +222,7 @@
                                     <div class="text-center">
                                         <template x-if="selectedFiles.length === 0">
                                             <div>
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="mx-auto size-10 text-base/40 mb-3" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                </svg>
+                                                <x-ri-upload-cloud-2-line class="mx-auto size-10 text-base/40 mb-3" />
                                                 <div
                                                     class="flex flex-col sm:flex-row items-center justify-center gap-1 text-sm">
                                                     <label for="attachments"
@@ -302,23 +240,12 @@
                                                 <template x-for="file in selectedFiles" :key="file.name">
                                                     <div
                                                         class="text-sm rounded-lg bg-background border border-neutral/20 flex items-center gap-2 px-3 py-1.5 shadow-sm">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="size-4 text-primary/70" fill="none"
-                                                            viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                        </svg>
+                                                        <x-ri-file-line class="size-4 text-primary/70" />
                                                         <span class="flex-1" x-text="file.name"></span>
                                                         <button type="button"
                                                             class="text-base/60 hover:text-error transition-colors"
                                                             @click="selectedFiles = selectedFiles.filter(f => f !== file)">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4"
-                                                                fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                            </svg>
+                                                            <x-ri-close-line class="size-4" />
                                                         </button>
                                                     </div>
                                                 </template>
@@ -334,11 +261,7 @@
 
                         <div class="mt-6 flex justify-end">
                             <x-button.primary type="submit" class="px-6 py-2.5 flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" />
-                                </svg>
+                                <x-ri-send-plane-fill class="size-4" />
                                 Send Reply
                             </x-button.primary>
                         </div>

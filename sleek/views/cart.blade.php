@@ -19,14 +19,8 @@
                             {{ __('product.empty_cart') }}
                         </h2>
                         <p class="text-base/70 max-w-md mx-auto">
-                            {{ __('Your shopping cart is currently empty. Browse our products to add items to your cart.') }}
+                            {{ __('Your shopping cart is currently empty.') }}
                         </p>
-                        <a href="/store" class="mt-2">
-                            <x-button.primary>
-                                <x-ri-shopping-bag-line class="size-5 mr-2" />
-                                {{ __('Browse Products') }}
-                            </x-button.primary>
-                        </a>
                     </div>
                 </div>
             @endif

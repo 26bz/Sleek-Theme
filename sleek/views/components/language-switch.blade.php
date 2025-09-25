@@ -1,3 +1,15 @@
+<x-select wire:model.live="currentLocale" :options="collect($locales)
+    ->map(
+        fn($locale, $code) => [
+            'value' => $code,
+            'label' => $locale,
+        ],
+    )
+    ->values()
+    ->toArray()" placeholder="Select language" />
+
+{{-- Custom dropdown version (disabled for now) --}}
+{{--
 <div class="relative" x-data="{ open: false }">
     <button 
         @click="open = !open"
@@ -23,7 +35,7 @@
         style="z-index: 9999;"
         class="absolute right-0 mt-1 w-48 bg-background-secondary rounded-md shadow-xl border border-neutral/20 py-1"
     >
-        @foreach($locales as $code => $locale)
+        @foreach ($locales as $code => $locale)
             <button 
                 wire:click="changeLocale('{{ $code }}')" 
                 @click="open = false"
@@ -34,3 +46,4 @@
         @endforeach
     </div>
 </div>
+--}}

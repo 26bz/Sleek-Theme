@@ -1,11 +1,12 @@
 @php
     $currentRoute = request()->livewireRoute();
 
-    $navigation = [
-        \App\Classes\Navigation::getLinks(),
-        \App\Classes\Navigation::getAccountDropdownLinks(),
-        \App\Classes\Navigation::getDashboardLinks(),
-    ];
+    $navigation = [\App\Classes\Navigation::getLinks()];
+
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        $navigation[] = \App\Classes\Navigation::getAccountDropdownLinks();
+        $navigation[] = \App\Classes\Navigation::getDashboardLinks();
+    }
 
     function findBreadcrumb($items, $currentRoute)
     {

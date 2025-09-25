@@ -42,10 +42,10 @@
   }
 
   :root {
-    --scrollbar-width: 12px;
-    --scrollbar-track-color: var(--color-neutral);
-    --scrollbar-thumb-color: var(--color-primary);
-    --scrollbar-thumb-hover: var(--color-secondary);
+    --scrollbar-width: 10px;
+    --scrollbar-track-color: rgba(229, 231, 235, 0.4);
+    --scrollbar-thumb-color: rgba(156, 163, 175, 0.7);
+    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
   }
 
   * {
@@ -61,55 +61,39 @@
   *::-webkit-scrollbar-track {
     background: var(--scrollbar-track-color);
     border-radius: 6px;
-    margin: 2px;
   }
 
   *::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--scrollbar-thumb-color), var(--scrollbar-thumb-hover));
+    background: var(--scrollbar-thumb-color);
     border-radius: 6px;
-    border: 2px solid var(--color-background);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, var(--scrollbar-thumb-hover), var(--scrollbar-thumb-color));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-  }
-
-  *::-webkit-scrollbar-thumb:active {
-    background: var(--scrollbar-thumb-color);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: scale(0.95);
+    background: var(--scrollbar-thumb-hover);
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 
   *::-webkit-scrollbar-corner {
-    background: var(--scrollbar-track-color);
-    border-radius: 6px;
+    background: transparent;
   }
 
-  *::-webkit-scrollbar:horizontal {
-    height: 10px;
-  }
+  @media (max-width: 768px) {
+    :root {
+      --scrollbar-width: 6px;
+    }
 
-  *::-webkit-scrollbar:vertical {
-    width: 10px;
+    *::-webkit-scrollbar-thumb {
+      border-width: 1px;
+    }
   }
 
   .dark {
-    --scrollbar-track-color: var(--color-neutral);
-    --scrollbar-thumb-color: var(--color-primary);
-    --scrollbar-thumb-hover: var(--color-secondary);
-  }
-
-  .dark *::-webkit-scrollbar-thumb {
-    border: 2px solid var(--color-background);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
-
-  .dark *::-webkit-scrollbar-thumb:hover {
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --scrollbar-track-color: rgba(31, 41, 55, 0.4);
+    --scrollbar-thumb-color: rgba(75, 85, 99, 0.7);
+    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
   }
 }
 
