@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     laravel({
       input: [path.resolve(__dirname, 'js/app.js'), path.resolve(__dirname, 'css/app.css'), 'resources/css/filament/admin/theme.css'],
-      buildDirectory: 'zap/',
+      buildDirectory: 'sleek/',
       refresh: true,
     }),
     tailwindcss(),
