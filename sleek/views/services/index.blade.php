@@ -86,7 +86,7 @@
                     <h3 class="text-xl font-semibold">No Services Found</h3>
                     <p class="text-base/70">You don't have any active services yet. Browse our products to get started.
                     </p>
-                    <a href="{{ route('index') }}" class="mt-2">
+                    <a href="{{ route('services') }}" class="mt-2">
                         <x-button.primary>
                             <x-ri-shopping-cart-fill class="size-4 mr-2" />
                             Browse Products
