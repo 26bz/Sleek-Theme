@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms' {
+  strategy: class;
+}
+
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source "../views";
+@source "../../../extensions/**/*.blade.php";
+@source "../../../extensions/Servers/Proxmox";
+@source "../../../extensions/Others/Pages";
+
+@theme {
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-primary: hsl(var(--color-primary));
+  --color-secondary: hsl(var(--color-secondary));
+  --color-neutral: hsl(var(--color-neutral));
+  --color-base: hsl(var(--color-base));
+  --color-muted: hsl(var(--color-muted));
+  --color-inverted: hsl(var(--color-inverted));
+  --color-success: hsl(var(--color-success));
+  --color-error: hsl(var(--color-error));
+  --color-warning: hsl(var(--color-warning));
+  --color-inactive: hsl(var(--color-inactive));
+  --color-info: hsl(var(--color-info));
+  --color-background: hsl(var(--color-background));
+  --color-background-secondary: hsl(var(--color-background-secondary));
+}
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  :root {
+    --scrollbar-width: 10px;
+    --scrollbar-track-color: rgba(229, 231, 235, 0.4);
+    --scrollbar-thumb-color: rgba(156, 163, 175, 0.7);
+    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+  }
+
+  *::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+    border-radius: 6px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    :root {
+      --scrollbar-width: 6px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      border-width: 1px;
+    }
+  }
+
+  .dark {
+    --scrollbar-track-color: rgba(31, 41, 55, 0.4);
+    --scrollbar-thumb-color: rgba(75, 85, 99, 0.7);
+    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
+  }
+}
+
+@utility text-nowrap {
+  text-wrap: nowrap;
+}
+
+@utility text-wrap {
+  text-wrap: wrap;
+}
+
+@import './easymde.css';
