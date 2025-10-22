@@ -5,9 +5,10 @@ Thank you for choosing the Sleek Theme! This theme is designed to enhance the lo
 ## Installation
 
 1. Place the theme in your Paymenter's theme directory.
-2. Consider reading [building assets](https://paymenter.org/development/theme/assets) 
-3. Enable the theme via the admin UI.
-4. You're all set—enjoy the sleek design!
+2. Follow Paymenter's guide on [building assets](https://paymenter.org/development/theme/assets) 
+3. Ensure you followed step #2.
+4. Enable the theme via the admin UI.
+5. You're all set—enjoy the sleek design!
 
 ## Updates
 
