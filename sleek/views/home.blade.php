@@ -192,7 +192,7 @@
 
 <div class="mb-16">
     <div
-        class="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-8 md:p-12 text-center">
+        class="bg-background-secondary border border-neutral/20 rounded-xl p-8 md:p-12 text-center">
         <h2 class="text-2xl md:text-3xl font-bold text-base mb-4">
             {{ theme('footer_cta_text', 'Ready to Get Started?') }}</h2>
         <p class="text-lg text-base/70 mb-8 max-w-2xl mx-auto">
@@ -202,8 +202,8 @@
             @php
                 $primaryLink = theme('cta_primary_link', '#services');
             @endphp
-            <a href="{{ $primaryLink }}">
-                <x-button.primary class="px-8 py-4 text-lg">
+            <a href="{{ $primaryLink }}" class="w-full sm:w-auto">
+                <x-button.primary class="w-full sm:w-auto px-8 py-4 text-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -221,8 +221,8 @@
                     $secondaryHref = route('tickets.create');
                 }
             @endphp
-            <a href="{{ $secondaryHref }}" wire:navigate>
-                <x-button.secondary class="px-8 py-4 text-lg">
+            <a href="{{ $secondaryHref }}" class="w-full sm:w-auto" wire:navigate>
+                <x-button.secondary class="w-full sm:w-auto px-8 py-4 text-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

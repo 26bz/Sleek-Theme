@@ -6,7 +6,7 @@
         ],
     )
     ->values()
-    ->toArray()" placeholder="Select language" />
+    ->toArray()" placeholder="Select language" class="border-[color:var(--color-border-muted)] focus:border-[color:var(--color-border)] focus:ring-[color:var(--color-border-ring)] hover:border-[color:var(--color-border)]" />
 
 {{-- Custom dropdown version (disabled for now) --}}
 {{--

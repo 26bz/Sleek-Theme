@@ -21,7 +21,7 @@
     <select id="{{ $id ?? $name }}" {{ $multiple ? 'multiple' : '' }}
         {{ $attributes->except(['options', 'id', 'name', 'multiple', 'class']) }}
         class="block px-2.5 py-2.5 w-full text-sm text-base bg-background border border-neutral/20
-        rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary hover:border-neutral/30 transition-all duration-200 form-select disabled:bg-background/50 disabled:cursor-not-allowed">
+        rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral/30 focus:border-neutral hover:border-neutral transition-all duration-200 form-select disabled:bg-background/50 disabled:cursor-not-allowed">
         @if (count($options) == 0 && $slot)
             {{ $slot }}
         @else

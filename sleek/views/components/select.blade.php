@@ -63,8 +63,8 @@
     @keydown.up.prevent="if(selectOpen) { selectableItemActivePrevious() } else { selectOpen = true }"
     @keydown.enter.prevent="selectedValue = selectableItemActive.value; selectOpen = false" class="relative w-full">
     <button x-ref="selectButton" @click="selectOpen = !selectOpen"
-        :class="{ 'ring-2 ring-offset-2 ring-neutral-800': selectOpen }"
-        class="relative w-full min-h-[38px] py-2 pl-3 pr-10 text-left bg-background-secondary border border-neutral rounded-md shadow-sm cursor-pointer text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-800"
+        :class="{ 'ring-2 ring-offset-2 ring-[color:var(--color-border-ring)] ring-offset-[color:var(--color-background)]': selectOpen }"
+        class="relative w-full min-h-[38px] py-2 pl-3 pr-10 text-left bg-background-secondary border border-[color:var(--color-border-muted)] rounded-md shadow-sm cursor-pointer text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[color:var(--color-border-ring)] focus:ring-offset-[color:var(--color-background)] focus:border-[color:var(--color-border)] hover:border-[color:var(--color-border)]"
         type="button">
         <span
             x-text="selectableItems.find(item => item.value === selectedValue)?.label ?? '{{ $placeholder ?? 'Select option' }}'"
@@ -78,7 +78,7 @@
         x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95"
         x-transition:enter-end="opacity-100 scale-100"
         :class="{ 'bottom-full mb-1': selectDropdownPosition === 'top', 'top-full mt-1': selectDropdownPosition === 'bottom' }"
-        class="absolute z-50 w-full py-1 overflow-auto bg-background-secondary border border-neutral rounded-lg shadow-lg max-h-60 focus:outline-none text-sm"
+        class="absolute z-50 w-full py-1 overflow-auto bg-background-secondary border border-[color:var(--color-border-muted)] rounded-lg shadow-lg max-h-60 focus:outline-none text-sm"
         x-cloak>
         <template x-for="item in selectableItems" :key="item.value">
             <li :id="item.value + '-' + selectId" @click="selectedValue = item.value; selectOpen = false"

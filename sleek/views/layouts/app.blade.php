@@ -65,7 +65,7 @@
                 {{ $slot }}
             </main>
             <x-notification />
-            <div class="py-8">
+            <div class="pt-8">
                 <x-navigation.footer />
             </div>
         </div>

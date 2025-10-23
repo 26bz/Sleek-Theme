@@ -218,6 +218,22 @@
     .services-show .border-inactive\/20 {
         border-color: hsla(220, 15%, 40%, 0.2) !important;
     }
+
+    input:focus,
+    input:focus-visible,
+    input:active,
+    select:focus,
+    select:focus-visible,
+    select:active,
+    textarea:focus,
+    textarea:focus-visible,
+    textarea:active {
+        border-color: var(--color-border) !important;
+        box-shadow: 0 0 0 1px var(--color-border-focus);
+        --tw-ring-color: var(--color-border-ring);
+        --tw-ring-offset-color: hsl(var(--color-background));
+        --tw-ring-offset-width: 2px;
+    }
 </style>
 
 @if (request()->is('admin*'))

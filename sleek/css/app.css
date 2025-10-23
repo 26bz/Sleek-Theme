@@ -31,6 +31,10 @@
   --color-info: hsl(var(--color-info));
   --color-background: hsl(var(--color-background));
   --color-background-secondary: hsl(var(--color-background-secondary));
+  --color-border: hsl(var(--color-neutral));
+  --color-border-muted: color-mix(in srgb, var(--color-border) 20%, transparent);
+  --color-border-focus: color-mix(in srgb, var(--color-border) 35%, transparent);
+  --color-border-ring: color-mix(in srgb, var(--color-border) 40%, transparent);
 }
 @layer base {
   *,
