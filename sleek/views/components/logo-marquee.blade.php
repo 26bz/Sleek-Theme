@@ -34,15 +34,6 @@
                             </div>
                         @endforeach
                     </div>
-
-                    <div class="flex absolute top-0 animate-marquee2 whitespace-nowrap">
-                        @foreach ($allLogos as $logoUrl)
-                            <div class="flex-shrink-0 h-12 w-auto mx-6 flex items-center justify-center">
-                                <img src="{{ $logoUrl }}" alt="Trusted Partner Logo"
-                                    class="h-full w-auto object-contain opacity-70">
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
             </div>
         </div>
@@ -59,22 +50,8 @@
             }
         }
 
-        @keyframes marquee2 {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(0%);
-            }
-        }
-
         .animate-marquee {
             animation: marquee 20s linear infinite;
-        }
-
-        .animate-marquee2 {
-            animation: marquee2 20s linear infinite;
         }
     </style>
 @endif

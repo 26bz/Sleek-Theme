@@ -77,11 +77,11 @@
                 <h3 class="text-xl font-semibold mb-2">No Support Tickets</h3>
                 <p class="text-base/70 mb-6 max-w-md mx-auto">You haven't created any support tickets yet. Need help
                     with something? Create your first ticket.</p>
-                <a href="{{ route('tickets.create') }}"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors shadow-sm"
-                    wire:navigate>
-                    <x-ri-add-line class="size-5" />
-                    <span>Create New Ticket</span>
+                <a href="{{ route('tickets.create') }}" class="inline-flex justify-center" wire:navigate>
+                    <x-button.primary class="py-2.5 px-5">
+                        <x-ri-add-line class="size-5" />
+                        <span>Create New Ticket</span>
+                    </x-button.primary>
                 </a>
             </div>
         @endif

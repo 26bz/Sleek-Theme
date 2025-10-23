@@ -15,7 +15,7 @@
             <p class="text-sm text-base/60 mt-1">{{ __('Please provide details about your issue') }}</p>
         </div>
 
-        <div class="p-5 max-h-[75vh] overflow-y-auto">
+        <div class="p-5">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <x-form.input wire:model="subject" label="{{ __('ticket.subject') }}" name="subject" required />
 
@@ -54,8 +54,8 @@
                     <label for="editor" class="block text-sm font-medium mb-2">
                         {{ __('Message') }} <span class="text-error">*</span>
                     </label>
-                    <div class="editor-container max-h-[250px] overflow-y-auto border border-neutral/20 rounded-md">
-                        <textarea id="editor" placeholder="Describe your issue in detail..."></textarea>
+                    <div class="editor-container border border-neutral/20 rounded-md">
+                        <textarea id="editor" placeholder="Describe your issue in detail..." class="resize-y"></textarea>
                     </div>
 
                     <div class="mt-4">
