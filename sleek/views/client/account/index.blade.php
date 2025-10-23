@@ -1,5 +1,4 @@
 <div class="space-y-6 pt-4">
-    <x-navigation.breadcrumb />
 
     <div class="flex items-center justify-between">
         <div>
@@ -62,10 +61,10 @@
                                 secure.</p>
                         </div>
                     </div>
-                    <a href="{{ route('password.request') }}"
+                    <a href="{{ route('account.security') }}"
                         class="inline-flex items-center gap-1.5 px-4 py-2 bg-background hover:bg-neutral/10 border border-neutral/20 rounded-lg text-sm font-medium transition-colors">
                         <x-ri-key-line class="size-4" />
-                        Change Password
+                        <span>Change Password</span>
                     </a>
                 </div>
             </div>

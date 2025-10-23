@@ -118,15 +118,17 @@
                         </div>
                         <h2 class="font-semibold text-base">{{ __('dashboard.open_tickets') }}</h2>
                     </div>
-                    <a href="{{ route('tickets') }}"
-                        class="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1 px-2 py-1 rounded hover:bg-primary/5 transition-colors"
-                        wire:navigate>
-                        {{ __('dashboard.view_all') }}
-                        <x-ri-arrow-right-s-line class="size-3.5" />
-                    </a>
                 </div>
-                <div class="p-5">
+                <div class="p-5 space-y-4">
                     <livewire:tickets.widget />
+                    @if (Auth::user()->tickets()->where('status', '!=', 'closed')->exists())
+                        <a href="{{ route('tickets') }}"
+                            class="inline-flex items-center gap-2 text-xs font-medium text-primary hover:text-primary/80 px-3 py-2 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
+                            wire:navigate>
+                            <span>{{ __('dashboard.view_all') }}</span>
+                            <x-ri-arrow-right-s-line class="size-3.5" />
+                        </a>
+                    @endif
                 </div>
             </div>
         @endif

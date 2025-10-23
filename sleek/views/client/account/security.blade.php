@@ -75,10 +75,12 @@
 
                 <div class="flex justify-end mt-6">
                     <x-button.primary
-                        class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 flex items-center gap-2"
+                        class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
                         type="submit">
-                        <x-ri-lock-password-line class="size-4" />
-                        {{ __('account.change_password') }}
+                        <span class="flex items-center gap-2">
+                            <x-ri-lock-password-line class="size-4" />
+                            <span>{{ __('account.change_password') }}</span>
+                        </span>
                     </x-button.primary>
                 </div>
             </form>
@@ -148,10 +150,12 @@
 
                         <div class="flex justify-end mt-6">
                             <x-button.primary
-                                class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 flex items-center gap-2"
+                                class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
                                 type="submit">
-                                <x-ri-shield-check-line class="size-4" />
-                                {{ __('account.two_factor_authentication_enable') }}
+                                <span class="flex items-center gap-2">
+                                    <x-ri-shield-check-line class="size-4" />
+                                    <span>{{ __('account.two_factor_authentication_enable') }}</span>
+                                </span>
                             </x-button.primary>
                         </div>
                     </form>

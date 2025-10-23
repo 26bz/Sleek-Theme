@@ -80,10 +80,12 @@
 
                 <div class="flex justify-end mt-6">
                     <x-button.primary
-                        class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20 flex items-center gap-2"
+                        class="px-6 py-2.5 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20"
                         type="submit">
-                        <x-ri-wallet-3-line class="size-4" />
-                        {{ __('account.add_credit') }}
+                        <span class="flex items-center gap-2">
+                            <x-ri-wallet-3-line class="size-4" />
+                            <span>{{ __('account.add_credit') }}</span>
+                        </span>
                     </x-button.primary>
                 </div>
             </form>
