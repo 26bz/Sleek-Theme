@@ -1,0 +1,7 @@
+{
+    "conventionalCommits.scopes": [
+        "style",
+        "invoices",
+        "announcements"
+    ]
+}

@@ -61,7 +61,7 @@
                 $regularPadding = 'pt-[6.5rem]';
             @endphp
             <main
-                class="container mx-auto max-w-7xl px-6 lg:px-8 {{ $isDashboardPage ? $dashboardPadding : $regularPadding }}">
+                class="container mx-auto max-w-7xl px-6 lg:px-8 flex-grow {{ $isDashboardPage ? $dashboardPadding : $regularPadding }}">
                 {{ $slot }}
             </main>
             <x-notification />
