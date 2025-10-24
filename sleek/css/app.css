@@ -47,9 +47,9 @@
 
   :root {
     --scrollbar-width: 10px;
-    --scrollbar-track-color: rgba(229, 231, 235, 0.4);
-    --scrollbar-thumb-color: rgba(156, 163, 175, 0.7);
-    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
+    --scrollbar-track-color: hsl(var(--color-secondary));
+    --scrollbar-thumb-color: hsl(var(--color-neutral));
+    --scrollbar-thumb-hover: hsl(var(--color-secondary));
   }
 
   * {
@@ -95,9 +95,9 @@
   }
 
   .dark {
-    --scrollbar-track-color: rgba(31, 41, 55, 0.4);
-    --scrollbar-thumb-color: rgba(75, 85, 99, 0.7);
-    --scrollbar-thumb-hover: rgba(107, 114, 128, 0.8);
+    --scrollbar-track-color: hsl(var(--color-secondary));
+    --scrollbar-thumb-color: hsl(var(--color-neutral));
+    --scrollbar-thumb-hover: hsl(var(--color-secondary));
   }
 }
 
