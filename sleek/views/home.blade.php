@@ -11,7 +11,7 @@
                     ]) !!}
                 </h1>
                 <p class="text-lg md:text-xl text-base/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-                    {{ __('Reliable, fast, and secure hosting solutions for businesses of all sizes. Get started in minutes with our easy-to-use platform.') }}
+                    {{ theme('hero_description', 'Reliable, fast, and secure hosting solutions for businesses of all sizes. Get started in minutes with our easy-to-use platform.') }}
                 </p>
                 @if (theme('hero_primary_button_text') || theme('hero_secondary_button_text'))
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -237,3 +237,4 @@
 
 {!! hook('pages.home') !!}
 </div>
+

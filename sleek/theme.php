@@ -80,6 +80,13 @@ return [
       'description' => 'Main headline for the hero section. Use **bold** for emphasis.',
     ],
     [
+      'name' => 'hero_description',
+      'label' => 'Hero Description Text (Hero only)',
+      'type' => 'textarea',
+      'default' => 'Reliable, fast, and secure hosting solutions for businesses of all sizes. Get started in minutes with our easy-to-use platform.',
+      'description' => 'Paragraph text displayed beneath the hero title. Footer description is managed separately below.',
+    ],
+    [
       'name' => 'hero_primary_button_text',
       'label' => 'Hero Primary Button Text',
       'type' => 'text',
