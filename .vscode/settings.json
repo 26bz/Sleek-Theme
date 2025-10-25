@@ -3,6 +3,7 @@
         "style",
         "invoices",
         "announcements",
-        "core"
+        "core",
+        "homepage"
     ]
 }
