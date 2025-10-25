@@ -14,8 +14,17 @@ Thank you for choosing the Sleek Theme! This theme is designed to enhance the lo
 
 Be sure to ask in the Discord if the theme is yet to be supported for any new releases of paymenter or if you encounter any issues.
 
-## Support
+## License
 
-If you need assistance, feel free to reach out:
+This project is licensed under the GNU General Public License v3.0 (GPLv3).
 
-- **Discord**: [Join our community](https://26bz.online/discord)
+- You may use, modify, and redistribute this module freely.
+- Any distributed modifications must remain under GPLv3.
+- Commercial resale of closed-source versions is not allowed.
+
+Full license text is in the `LICENSE` file.
+
+### Contact
+
+- Website: https://26bz.online
+- Discord: https://26bz.online/discord

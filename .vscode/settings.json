@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "style",
         "invoices",
-        "announcements"
+        "announcements",
+        "core"
     ]
 }
