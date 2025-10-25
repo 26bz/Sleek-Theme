@@ -49,4 +49,3 @@
         </nav>
     @endif
 </div>
-

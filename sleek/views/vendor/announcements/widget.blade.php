@@ -11,8 +11,7 @@
 
             <x-navigation.link
                 class="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1 px-2 py-1 rounded hover:bg-primary/5 transition-colors"
-                :href="route('announcements.index')"
-            >
+                :href="route('announcements.index')">
                 {{ __('dashboard.view_all') }}
                 <x-ri-arrow-right-s-line class="size-3.5" />
             </x-navigation.link>

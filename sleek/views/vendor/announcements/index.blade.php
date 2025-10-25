@@ -11,8 +11,7 @@
                 @unless (request()->routeIs('announcements.index'))
                     <x-navigation.link
                         class="bg-background-secondary hover:bg-background-secondary/80 border border-neutral/20 flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium"
-                        :href="route('announcements.index')"
-                    >
+                        :href="route('announcements.index')">
                         {{ __('dashboard.view_all') }}
                         <x-ri-arrow-right-s-line class="size-5" />
                     </x-navigation.link>
@@ -36,7 +35,8 @@
                                         </h3>
                                         @if ($announcement->published_at)
                                             <p class="text-xs text-base/60">
-                                                {{ $announcement->published_at->translatedFormat('M j, Y') }} · {{ $announcement->published_at->diffForHumans() }}
+                                                {{ $announcement->published_at->translatedFormat('M j, Y') }} ·
+                                                {{ $announcement->published_at->diffForHumans() }}
                                             </p>
                                         @endif
                                     </div>
@@ -51,7 +51,8 @@
 
                             <div class="mt-auto flex items-center gap-2 text-xs font-medium text-primary">
                                 <span>{{ __('general.view') }}</span>
-                                <x-ri-arrow-right-s-line class="size-4 transition-transform group-hover:translate-x-1" />
+                                <x-ri-arrow-right-s-line
+                                    class="size-4 transition-transform group-hover:translate-x-1" />
                             </div>
                         </div>
                     </a>

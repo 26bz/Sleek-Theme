@@ -49,8 +49,8 @@
                 <x-ri-bill-line class="size-6 text-base/50" />
             </div>
             <p class="font-medium">{{ __('No unpaid invoices') }}</p>
-            <p class="text-xs text-base/60">{{ __('All of your invoices are settled. We will notify you when a new invoice is generated.') }}</p>
+            <p class="text-xs text-base/60">
+                {{ __('All of your invoices are settled. We will notify you when a new invoice is generated.') }}</p>
         </div>
     </div>
 @endif
-

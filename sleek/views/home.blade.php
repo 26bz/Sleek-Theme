@@ -191,8 +191,7 @@
 </div>
 
 <div class="mb-16">
-    <div
-        class="bg-background-secondary border border-neutral/20 rounded-xl p-8 md:p-12 text-center">
+    <div class="bg-background-secondary border border-neutral/20 rounded-xl p-8 md:p-12 text-center">
         <h2 class="text-2xl md:text-3xl font-bold text-base mb-4">
             {{ theme('footer_cta_text', 'Ready to Get Started?') }}</h2>
         <p class="text-lg text-base/70 mb-8 max-w-2xl mx-auto">
@@ -237,4 +236,3 @@
 
 {!! hook('pages.home') !!}
 </div>
-

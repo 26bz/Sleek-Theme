@@ -83,7 +83,8 @@
                             <span class="hidden md:flex items-center gap-2">
                                 <x-ri-user-3-line class="size-4" />
                                 <span>{{ $accountNav['name'] }}</span>
-                                <x-ri-arrow-down-s-line class="size-3 opacity-60 transition-transform" x-bind:class="{ 'rotate-180': open }" />
+                                <x-ri-arrow-down-s-line class="size-3 opacity-60 transition-transform"
+                                    x-bind:class="{ 'rotate-180': open }" />
                             </span>
                         </button>
 

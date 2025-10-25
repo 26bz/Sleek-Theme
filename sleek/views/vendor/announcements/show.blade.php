@@ -9,15 +9,15 @@
             </h1>
             @if ($announcement->published_at)
                 <p class="text-sm text-base/60">
-                    {{ $announcement->published_at->translatedFormat('F j, Y g:i A') }} · {{ $announcement->published_at->diffForHumans() }}
+                    {{ $announcement->published_at->translatedFormat('F j, Y g:i A') }} ·
+                    {{ $announcement->published_at->diffForHumans() }}
                 </p>
             @endif
         </div>
 
         <x-navigation.link
             class="shrink-0 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 px-3 py-2 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
-            :href="route('announcements.index')"
-        >
+            :href="route('announcements.index')">
             <x-ri-arrow-left-s-line class="size-4" />
             {{ __('dashboard.view_all') }}
         </x-navigation.link>
