@@ -61,6 +61,7 @@
                                 'SSD storage, CDN integration, and optimized servers ensure your website loads in milliseconds.',
                             ),
                             'color' => 'primary',
+                            'icon' => theme('feature_1_icon', 'ri-check-line'),
                         ],
                         [
                             'title' => theme('feature_2_title', 'Bank-Level Security'),
@@ -69,6 +70,7 @@
                                 'Advanced security measures protect your data with SSL certificates, firewalls, and daily backups.',
                             ),
                             'color' => 'success',
+                            'icon' => theme('feature_2_icon', 'ri-shield-keyhole-line'),
                         ],
                         [
                             'title' => theme('feature_3_title', 'Expert Support 24/7'),
@@ -77,6 +79,7 @@
                                 'Our hosting experts are available around the clock to help with any technical issues or questions.',
                             ),
                             'color' => 'warning',
+                            'icon' => theme('feature_3_icon', 'ri-customer-service-2-line'),
                         ],
                         [
                             'title' => theme('feature_4_title', 'Easily Scalable'),
@@ -85,6 +88,7 @@
                                 'Start small and grow big. Upgrade your resources instantly as your business expands.',
                             ),
                             'color' => 'info',
+                            'icon' => theme('feature_4_icon', 'ri-stack-line'),
                         ],
                         [
                             'title' => theme('feature_5_title', 'User-Friendly Control Panel'),
@@ -93,6 +97,7 @@
                                 'Manage your hosting with our intuitive control panel. No technical knowledge required.',
                             ),
                             'color' => 'secondary',
+                            'icon' => theme('feature_5_icon', 'ri-dashboard-3-line'),
                         ],
                         [
                             'title' => theme('feature_6_title', '99.9% Uptime Guarantee'),
@@ -101,16 +106,26 @@
                                 'Your website stays online with our reliable infrastructure and uptime monitoring.',
                             ),
                             'color' => 'error',
+                            'icon' => theme('feature_6_icon', 'ri-timer-line'),
                         ],
                     ];
                 @endphp
 
                 @foreach ($features as $feature)
                     @if ($feature['title'])
+                        @php
+                            $iconComponent = $feature['icon'] ?? null;
+                            if (!empty($iconComponent) && !Str::startsWith($iconComponent, 'ri-')) {
+                                $iconComponent = Str::start($iconComponent, 'ri-');
+                            }
+                        @endphp
                         <div
                             class="bg-background-secondary border border-neutral/20 rounded-xl p-6 hover:border-neutral/30 transition-all duration-200 hover:shadow-sm">
                             <div class="bg-{{ $feature['color'] }}/10 p-3 rounded-lg w-fit mb-4">
-                                <x-ri-check-line class="size-8 text-{{ $feature['color'] }}" />
+                                @if (!empty($iconComponent))
+                                    <x-dynamic-component :component="$iconComponent"
+                                        class="size-8 text-{{ $feature['color'] }}" />
+                                @endif
                             </div>
                             <h3 class="text-xl font-semibold mb-3">{{ $feature['title'] }}</h3>
                             <p class="text-base/70 mb-4">{{ $feature['description'] }}</p>
@@ -127,9 +142,12 @@
 
     <div id="services" class="mb-16">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-base mb-4">{{ __('Choose Our Hosting Services') }}</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-base mb-4">
+                {{ theme('services_title', 'Choose Our Hosting Services') }}
+            </h2>
             <p class="text-lg text-base/70 max-w-2xl mx-auto">
-                {{ __('Explore our range of specialized hosting services designed to meet your specific needs.') }}</p>
+                {{ theme('services_subtitle', 'Explore our range of specialized hosting services designed to meet your specific needs.') }}
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
