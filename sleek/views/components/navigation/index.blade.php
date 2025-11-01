@@ -31,7 +31,10 @@
                                     </x-slot:trigger>
                                     <x-slot:content>
                                         @foreach ($nav['children'] as $child)
-                                            <x-navigation.link :href="route($child['route'], $child['params'] ?? null)" :spa="isset($child['spa']) ? $nav['spa'] : true">
+                                            <x-navigation.link :href="$child['url'] ??
+                                                (isset($child['route'])
+                                                    ? route($child['route'], $child['params'] ?? [])
+                                                    : '#')" :spa="isset($child['spa']) ? $nav['spa'] : true">
                                                 {{ $child['name'] }}
                                             </x-navigation.link>
                                         @endforeach
@@ -39,7 +42,8 @@
                                 </x-dropdown>
                             </div>
                         @else
-                            <x-navigation.link :href="route($nav['route'], $nav['params'] ?? null)" :spa="isset($nav['spa']) ? $nav['spa'] : true"
+                            <x-navigation.link :href="$nav['url'] ??
+                                (isset($nav['route']) ? route($nav['route'], $nav['params'] ?? []) : '#')" :spa="isset($nav['spa']) ? $nav['spa'] : true"
                                 class="flex items-center p-3 {{ $nav['active'] ? 'text-primary' : '' }}">
                                 @isset($nav['icon'])
                                     <x-dynamic-component :component="$nav['icon']"
@@ -55,24 +59,43 @@
             </div>
 
             <div class="flex flex-row items-center gap-1">
-                <!-- Language Switch -->
-                <div class="items-center flex">
-                    <livewire:components.language-switch />
-                </div>
-
-                <!-- Currency Switch -->
-                <div class="items-center flex">
-                    <livewire:components.currency-switch />
-                </div>
-
                 <!-- Cart -->
                 <livewire:components.cart />
 
-                <!-- Theme Toggle -->
-                <div class="items-center flex">
+                <!-- Language / Currency / Theme -->
+                <div class="items-center hidden md:flex mr-1 gap-2">
+                    <x-dropdown>
+                        <x-slot:trigger>
+                            <div class="flex flex-col">
+                                <span class="text-sm text-base font-semibold text-nowrap">
+                                    {{ strtoupper(app()->getLocale()) }}
+                                    <span class="text-base/50 font-semibold">|</span>
+                                    {{ \App\Models\Currency::find(session('currency', config('settings.default_currency')))?->name ?? session('currency', config('settings.default_currency')) }}
+                                </span>
+                            </div>
+                        </x-slot:trigger>
+                        <x-slot:content>
+                            <div class="space-y-2">
+                                <div>
+                                    <strong
+                                        class="block p-2 text-xs font-semibold uppercase text-base/50">Language</strong>
+                                    <div class="px-2 pb-2">
+                                        <livewire:components.language-switch :key="'nav-language-switch'" />
+                                    </div>
+                                </div>
+                                <div class="border-t border-neutral/10 pt-2">
+                                    <strong
+                                        class="block px-2 pb-2 text-xs font-semibold uppercase text-base/50">Currency</strong>
+                                    <div class="px-2 pb-2">
+                                        <livewire:components.currency-switch :key="'nav-currency-switch'" />
+                                    </div>
+                                </div>
+                            </div>
+                        </x-slot:content>
+                    </x-dropdown>
+
                     <x-theme-toggle />
                 </div>
-
 
                 @if (auth()->check())
                     <div class="hidden lg:flex">
@@ -87,7 +110,8 @@
                                     <span class="text-sm text-base break-words">{{ auth()->user()->email }}</span>
                                 </div>
                                 @foreach (\App\Classes\Navigation::getAccountDropdownLinks() as $nav)
-                                    <x-navigation.link :href="route($nav['route'], $nav['params'] ?? null)" :spa="isset($nav['spa']) ? $nav['spa'] : true">
+                                    <x-navigation.link :href="$nav['url'] ??
+                                        (isset($nav['route']) ? route($nav['route'], $nav['params'] ?? []) : '#')" :spa="isset($nav['spa']) ? $nav['spa'] : true">
                                         {{ $nav['name'] }}
                                     </x-navigation.link>
                                 @endforeach
@@ -171,10 +195,10 @@
                                                     <div class="p-4 pt-0 opacity-70">
                                                         @foreach ($nav['children'] as $child)
                                                             <div class="flex items-center space-x-2">
-                                                                <x-navigation.link :href="route(
-                                                                    $child['route'],
-                                                                    $child['params'] ?? [],
-                                                                )" :spa="$child['spa'] ?? true"
+                                                                <x-navigation.link :href="$child['url'] ??
+                                                                    (isset($child['route'])
+                                                                        ? route($child['route'], $child['params'] ?? [])
+                                                                        : '#')" :spa="$child['spa'] ?? true"
                                                                     class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                                                     {{ $child['name'] }}
                                                                 </x-navigation.link>
@@ -187,7 +211,10 @@
                                     @else
                                         <div
                                             class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                                            <x-navigation.link :href="route($nav['route'], $nav['params'] ?? [])" :spa="$nav['spa'] ?? true" class="w-full">
+                                            <x-navigation.link :href="$nav['url'] ??
+                                                (isset($nav['route'])
+                                                    ? route($nav['route'], $nav['params'] ?? [])
+                                                    : '#')" :spa="$nav['spa'] ?? true" class="w-full">
                                                 @isset($nav['icon'])
                                                     <x-dynamic-component :component="$nav['icon']"
                                                         class="size-5 {{ $nav['active'] ? 'text-primary' : 'text-base/70' }}" />
@@ -271,7 +298,10 @@
                                             <div class="h-px w-full bg-neutral my-6"></div>
                                             <div class="mt-4 flex flex-col gap-2 w-full">
                                                 @foreach (\App\Classes\Navigation::getAccountDropdownLinks() as $nav)
-                                                    <x-navigation.link :href="route($nav['route'], $nav['params'] ?? null)" :spa="isset($nav['spa']) ? $nav['spa'] : true">
+                                                    <x-navigation.link :href="$nav['url'] ??
+                                                        (isset($nav['route'])
+                                                            ? route($nav['route'], $nav['params'] ?? [])
+                                                            : '#')" :spa="isset($nav['spa']) ? $nav['spa'] : true">
                                                         {{ $nav['name'] }}
                                                     </x-navigation.link>
                                                 @endforeach
