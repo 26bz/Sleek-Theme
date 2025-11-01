@@ -239,14 +239,20 @@
 @if (request()->is('admin*'))
     <style>
         :root {
-            --color-primary: 229 100% 64%;
-            --color-secondary: 237 33% 60%;
-            --color-neutral: 220 25% 85%;
-            --color-base: 0 0% 0%;
-            --color-muted: 220 28% 25%;
-            --color-inverted: 100 100% 100%;
-            --color-background: 100 100% 100%;
-            --color-background-secondary: 0 0% 97%;
+            --color-primary: {{ $darkColors['primary'] }};
+            --color-secondary: {{ $darkColors['secondary'] }};
+            --color-neutral: {{ $darkColors['neutral'] }};
+            --color-base: {{ $darkColors['base'] }};
+            --color-muted: {{ $darkColors['muted'] }};
+            --color-inverted: {{ $darkColors['inverted'] }};
+            --color-background: {{ $darkColors['background'] }};
+            --color-background-secondary: {{ $darkColors['background-secondary'] }};
+        }
+
+        :root,
+        body {
+            color-scheme: dark;
+            background-color: hsl({{ $darkColors['background'] }});
         }
     </style>
 @endif
