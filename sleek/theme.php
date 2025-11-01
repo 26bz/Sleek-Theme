@@ -396,14 +396,6 @@ $contactSettings = [
     'default' => '',
     'description' => 'Phone number displayed in the footer (leave empty to use system default)',
   ],
-  [
-    'name' => 'show_theme_attribution',
-    'label' => 'Show Theme Attribution',
-    'type' => 'checkbox',
-    'default' => true,
-    'database_type' => 'boolean',
-    'description' => 'Display theme attribution in the footer',
-  ],
 ];
 
 $socialSettings = [

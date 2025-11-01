@@ -58,7 +58,7 @@
                     @foreach (\App\Classes\Navigation::getLinks() as $nav)
                         @if (!isset($nav['children']) || empty($nav['children']))
                             <li>
-                                <a href="{{ route($nav['route'], $nav['params'] ?? []) }}"
+                                <a href="{{ $nav['url'] ?? (isset($nav['route']) ? route($nav['route'], $nav['params'] ?? []) : '#') }}"
                                     class="text-sm text-base/70 hover:text-primary transition-colors"
                                     @if (isset($nav['spa']) && $nav['spa']) wire:navigate @endif>
                                     {{ $nav['name'] }}
@@ -129,13 +129,11 @@
                     <p class="text-sm">Powered by Paymenter</p>
                 </a>
 
-                @if (theme('show_theme_attribution', true))
-                    <span class="text-base/50 mx-2">|</span>
-                    <a href="https://26bz.online" target="_blank"
-                        class="text-base/50 hover:text-primary transition-colors">
-                        <span class="text-sm">Theme by 26bz</span>
-                    </a>
-                @endif
+                <span class="text-base/50 mx-2">|</span>
+                <a href="https://26bz.online" target="_blank"
+                    class="text-base/50 hover:text-primary transition-colors">
+                    <span class="text-sm">Theme by 26bz</span>
+                </a>
             </div>
         </div>
     </div>
