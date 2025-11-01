@@ -50,7 +50,7 @@
                             @endif
 
                             <div class="mt-auto flex items-center gap-2 text-xs font-medium text-primary">
-                                <span>{{ __('general.view') }}</span>
+                                <span>{{ __('common.button.view') }}</span>
                                 <x-ri-arrow-right-s-line
                                     class="size-4 transition-transform group-hover:translate-x-1" />
                             </div>
