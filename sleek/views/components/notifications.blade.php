@@ -21,7 +21,7 @@
                 </div>
                 @else
                 @foreach ($this->notifications as $notification)
-                <div wire:click="goToNotification({{ $notification->id }})"
+                <div wire:click="goToNotification('{{ $notification->id }}')"
                     class="block px-4 py-3 hover:bg-background-secondary/50 cursor-pointer @if (!$loop->last) border-b border-neutral/50 @endif">
                     <div class="flex items-start gap-3">
                         <x-ri-notification-3-fill
@@ -34,7 +34,7 @@
                                     {{ $notification->created_at->diffForHumans() }}
                                 </p>
 
-                                <button wire:click.stop="markAsRead({{ $notification->id }})" class="cursor-pointer"
+                                <button wire:click.stop="markAsRead('{{ $notification->id }}')" class="cursor-pointer"
                                     type="button">
                                     {{ __('Mark as read') }}
                                 </button>

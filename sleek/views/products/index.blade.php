@@ -8,7 +8,7 @@
         </div>
         <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
             <div class="border-b border-neutral/20 p-4">
-                <h2 class="font-medium">{{ __('Categories') }}</h2>
+                <h2 class="font-medium">{{ __('product.categories') }}</h2>
             </div>
             <div class="p-2">
                 @foreach ($categories as $ccategory)
@@ -57,7 +57,7 @@
                         class="block w-full">
                         <x-button.primary class="w-full justify-center">
                             <x-ri-folder-open-line class="size-4 mr-2" />
-                            {{ __('general.view') }}
+                            {{ __('common.button.view') }}
                         </x-button.primary>
                     </a>
                 </div>
@@ -74,7 +74,7 @@
                         <div class="absolute top-2 right-2 z-10">
                             <span
                                 class="text-xs font-medium px-2.5 py-1 rounded-full bg-error/10 text-error border border-error/20">
-                                {{ __('product.out_of_stock', ['product' => $product->name]) }}
+                                {{ __('product.out_of_stock') }}
                             </span>
                         </div>
                     @elseif($product->stock > 0)
@@ -126,7 +126,7 @@
                                 class="block w-full" wire:navigate>
                                 <x-button.primary class="w-full justify-center">
                                     <x-ri-eye-fill class="size-4 mr-2" />
-                                    {{ __('general.view') }}
+                                    {{ __('common.button.view') }}
                                 </x-button.primary>
                             </a>
                         @endif
