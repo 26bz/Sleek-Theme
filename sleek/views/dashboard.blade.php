@@ -1,22 +1,25 @@
 <div class="pt-4">
-    <div class="flex items-center justify-between mb-8">
-        <div>
-            <h1 class="text-3xl font-bold text-base">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
+        <div class="space-y-2 text-center md:text-left md:flex-1">
+            <h1 class="text-2xl md:text-3xl font-bold text-base">
                 {{ __('Welcome back') }}, {{ Auth::user()->first_name }}
             </h1>
-            <p class="text-base/60 mt-2">{{ __('Manage your services and account from your dashboard') }}</p>
+            <p class="text-base/60 text-sm md:text-base">
+                {{ __('Manage your services and account from your dashboard') }}
+            </p>
         </div>
-        <div class="flex items-center gap-3">
-            @if (!config('settings.tickets_disabled', false))
-                <a href="{{ route('tickets.create') }}" wire:navigate>
+
+        @if (!config('settings.tickets_disabled', false))
+            <div class="flex md:flex-none justify-center md:justify-end">
+                <a href="{{ route('tickets.create') }}" wire:navigate class="w-full sm:w-auto">
                     <x-button.primary
-                        class="flex items-center gap-2 py-2.5 px-4 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20">
+                        class="w-full sm:w-auto flex items-center justify-center gap-2 py-2.5 px-4 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20">
                         <x-ri-add-line class="size-4" />
                         {{ __('New Ticket') }}
                     </x-button.primary>
                 </a>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
