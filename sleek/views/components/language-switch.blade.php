@@ -1,14 +1,12 @@
-<x-select wire:model.live="currentLocale" :options="collect($locales)
-    ->map(
-        fn($locale, $code) => [
-            'value' => $code,
-            'label' => $locale,
-        ],
-    )
-    ->values()
-    ->toArray()" placeholder="Select language"
-    class="border-[color:var(--color-border-muted)] focus:border-[color:var(--color-border)] focus:ring-[color:var(--color-border-ring)] hover:border-[color:var(--color-border)]" />
-
+<x-select
+    wire:model.live="currentLocale"
+    :options="collect($locales)->map(fn($locale, $code) => [
+        'value' => $code,
+        'label' => $locale,
+    ])->values()->toArray()"
+    placeholder="Select language"
+    class="min-w-[120px] flex-shrink-0"
+/>
 {{-- Custom dropdown version (disabled for now) --}}
 {{--
 <div class="relative" x-data="{ open: false }">
