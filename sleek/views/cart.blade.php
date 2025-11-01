@@ -1,15 +1,16 @@
 <div class="flex flex-col space-y-6">
     <div class="flex justify-between items-center">
         <h1 class="text-2xl font-bold">{{ __('Shopping Cart') }}</h1>
-        @if (!Cart::get()->isEmpty())
-            <span class="text-sm text-base/70">{{ Cart::get()->count() }}
-                {{ Cart::get()->count() == 1 ? __('item') : __('items') }}</span>
+        @php($cartItemCount = Cart::items()->count())
+        @if ($cartItemCount > 0)
+            <span class="text-sm text-base/70">{{ $cartItemCount }}
+                {{ $cartItemCount === 1 ? __('item') : __('items') }}</span>
         @endif
     </div>
 
     <div class="flex flex-col md:grid md:grid-cols-4 gap-6">
         <div class="flex flex-col col-span-3 gap-4">
-            @if (Cart::get()->isEmpty())
+            @if ($cartItemCount === 0)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg p-8 text-center">
                     <div class="flex flex-col items-center justify-center space-y-4">
                         <div class="bg-neutral/5 rounded-full p-4 inline-block">
@@ -25,19 +26,20 @@
                 </div>
             @endif
 
-            @foreach (Cart::get() as $key => $item)
+            @foreach (Cart::items() as $key => $item)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
                     <div class="flex flex-col sm:flex-row justify-between p-4 sm:p-5 gap-4">
                         <div class="flex flex-col gap-2">
                             <h2 class="text-lg font-medium">
                                 {{ $item->product->name }}
                             </h2>
-                            @if (count($item->configOptions) > 0)
+                            @php($configOptions = collect($item->config_options ?? []))
+                            @if ($configOptions->isNotEmpty())
                                 <div class="text-sm text-base/70 bg-neutral/5 p-3 rounded-lg border border-neutral/10">
-                                    @foreach ($item->configOptions as $option)
+                                    @foreach ($configOptions as $option)
                                         <div class="flex justify-between gap-4 mb-1 last:mb-0">
-                                            <span class="font-medium">{{ $option->option_name }}:</span>
-                                            <span>{{ $option->value_name }}</span>
+                                            <span class="font-medium">{{ $option['option_name'] ?? '' }}:</span>
+                                            <span>{{ $option['value_name'] ?? '' }}</span>
                                         </div>
                                     @endforeach
                                 </div>
@@ -110,7 +112,7 @@
             @endforeach
         </div>
         <div class="flex flex-col gap-4">
-            @if (!Cart::get()->isEmpty())
+            @if ($cartItemCount > 0)
                 <div
                     class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm sticky top-24">
                     <div class="border-b border-neutral/20 p-4">
