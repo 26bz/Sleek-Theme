@@ -74,7 +74,7 @@
                         <div class="absolute top-2 right-2 z-10">
                             <span
                                 class="text-xs font-medium px-2.5 py-1 rounded-full bg-error/10 text-error border border-error/20">
-                                {{ __('product.out_of_stock') }}
+                                {{ __('product.out_of_stock', ['product' => $product->name]) }}
                             </span>
                         </div>
                     @elseif($product->stock > 0)
