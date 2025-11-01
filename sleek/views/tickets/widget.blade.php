@@ -23,7 +23,7 @@
                                 <div class="flex-1 min-w-0">
                                     <h3
                                         class="font-semibold text-base group-hover:text-primary transition-colors truncate">
-                                        {{ $ticket->subject }}</h3>
+                                        #{{ $ticket->id }} · {{ $ticket->subject }}</h3>
                                     <p class="text-xs text-base/60">{{ $ticket->department ?: 'General' }}</p>
                                 </div>
                             </div>

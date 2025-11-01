@@ -7,7 +7,7 @@
                 <a href="{{ route('tickets') }}" class="text-base/70 hover:text-primary transition-colors" wire:navigate>
                     <x-ri-arrow-left-line class="size-5" />
                 </a>
-                <h1 class="text-2xl font-bold">{{ $ticket->subject }}</h1>
+                <h1 class="text-2xl font-bold">#{{ $ticket->id }} · {{ $ticket->subject }}</h1>
             </div>
             <p class="text-sm text-base/60 mt-1">Ticket #{{ $ticket->id }} ·
                 {{ $ticket->created_at->format('M d, Y') }}</p>
@@ -56,7 +56,7 @@
                 <div class="divide-y divide-neutral/10">
                     <div class="p-4">
                         <h4 class="text-xs font-medium text-base/60 uppercase mb-1">Subject</h4>
-                        <p class="font-medium">{{ $ticket->subject }}</p>
+                        <p class="font-medium">#{{ $ticket->id }} · {{ $ticket->subject }}</p>
                     </div>
 
                     <div class="p-4">
@@ -118,10 +118,8 @@
                             <div
                                 class="flex flex-row items-start gap-3 {{ $message->user_id === $ticket->user_id ? 'flex-row-reverse' : '' }}">
                                 <div class="flex-shrink-0">
-                                    <div
-                                        class="size-10 rounded-full {{ $message->user_id === $ticket->user_id ? 'bg-primary/10 text-primary' : 'bg-neutral/10 text-base/70' }} flex items-center justify-center font-medium">
-                                        {{ substr($message->user->name, 0, 1) }}
-                                    </div>
+                                    <img src="{{ $message->user->avatar }}" alt="{{ $message->user->name }}"
+                                        class="size-10 rounded-full border border-neutral bg-background object-cover" />
                                 </div>
 
                                 <div
@@ -259,10 +257,25 @@
                             </div>
                         </div>
 
-                        <div class="mt-6 flex justify-end">
-                            <x-button.primary type="submit" class="px-6 py-2.5 flex items-center gap-2">
-                                <x-ri-send-plane-fill class="size-4" />
-                                Send Reply
+                        <div class="mt-6 flex flex-col sm:flex-row gap-2 justify-end">
+                            @if (!config('settings.ticket_client_closing_disabled', false) && $ticket->status !== 'closed')
+                                <x-button.danger type="button" class="sm:!w-fit order-2 sm:order-1"
+                                    x-on:click.prevent="$store.confirmation.confirm({
+                                        title: '{{ __('ticket.close_ticket') }}',
+                                        message: '{{ __('ticket.close_ticket_confirmation') }}',
+                                        confirmText: '{{ __('common.confirm') }}',
+                                        cancelText: '{{ __('common.cancel') }}',
+                                        callback: () => $wire.closeTicket()
+                                    })">
+                                    {{ __('ticket.close_ticket') }}
+                                </x-button.danger>
+                            @endif
+
+                            <x-button.primary type="submit" class="px-6 py-2.5 sm:!w-fit order-1 sm:order-2">
+                                <span class="flex items-center gap-2">
+                                    <x-ri-send-plane-fill class="size-4" />
+                                    Send Reply
+                                </span>
                             </x-button.primary>
                         </div>
                     </form>

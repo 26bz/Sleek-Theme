@@ -34,7 +34,7 @@
                                         class="size-5 text-base/80 group-hover:text-primary transition-colors" />
                                 </div>
                                 <div class="min-w-0">
-                                    <span class="font-medium truncate block">{{ $ticket->subject }}</span>
+                                    <span class="font-medium truncate block">#{{ $ticket->id }} · {{ $ticket->subject }}</span>
                                     <span
                                         class="text-xs text-base/60 md:hidden">{{ $ticket->department ?: 'General' }}</span>
                                 </div>
