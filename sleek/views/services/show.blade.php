@@ -1,12 +1,10 @@
-<div class="space-y-6">
-    <x-navigation.breadcrumb />
-
-    @if ($invoice = $service->invoices()->where('status', 'pending')->first())
-        <div class="w-full">
-            <div class="bg-warning/10 border border-warning/20 text-warning p-4 rounded-lg flex items-center gap-3">
-                <div class="flex-shrink-0">
-                    <x-ri-error-warning-fill class="size-5" />
-                </div>
+<div class="space-y-6 pt-4">
+    <div class="space-y-6">
+        @if ($invoice = $service->invoices()->where('status', 'pending')->first())
+            <div class="w-full">
+                <div class="bg-warning/10 border border-warning/20 text-warning p-4 rounded-lg flex items-center gap-3">
+                    <div class="flex-shrink-0">
+                        <x-ri-error-warning-fill class="size-5" />
                 <div>
                     <p class="font-medium">
                         {{ __('services.outstanding_invoice') }}

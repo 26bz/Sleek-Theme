@@ -1,6 +1,4 @@
 <div class="space-y-6 pt-4">
-    <x-navigation.breadcrumb />
-
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">My Services</h1>
     </div>

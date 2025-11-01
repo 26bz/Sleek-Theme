@@ -1,12 +1,9 @@
-<div class="space-y-6" @if ($checkPayment) wire:poll="checkPaymentStatus" @endif>
-    <x-navigation.breadcrumb />
-
-    @if ($this->pay)
-        <x-modal title="Payment for Invoice #{{ $invoice->number }}" open>
-            <div class="mt-6">
-                {{ $this->pay }}
-            </div>
-            <x-slot name="closeTrigger">
+<div class="space-y-6 pt-4">
+    <div class="space-y-6">
+        @if ($this->pay)
+            <x-modal title="Payment for Invoice #{{ $invoice->number }}" open>
+                <div class="mt-6">
+                    {{ $this->pay }}
                 <div class="flex items-center gap-4">
                     <span class="font-medium">Amount: <span
                             class="text-primary">{{ $invoice->formattedRemaining }}</span></span>

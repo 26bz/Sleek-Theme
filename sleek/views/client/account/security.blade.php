@@ -1,6 +1,4 @@
 <div class="space-y-6 pt-4">
-    <x-navigation.breadcrumb />
-
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-bold">{{ __('Security Settings') }}</h1>
@@ -105,7 +103,14 @@
                     </div>
                 </div>
 
-                <x-button.secondary wire:click="disableTwoFactor"
+                <x-button.secondary
+                    x-on:click="$store.confirmation.confirm({
+                        title: '{{ __('account.two_factor_authentication_disable') }}',
+                        message: '{{ __('account.two_factor_authentication_disable_description') }}',
+                        confirmText: '{{ __('account.confirm') }}',
+                        cancelText: '{{ __('account.cancel') }}',
+                        callback: () => $wire.disableTwoFactor()
+                    })"
                     class="flex items-center gap-2 font-medium transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4">
                         <path fill="currentColor"
