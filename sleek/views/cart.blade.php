@@ -1,12 +1,11 @@
 <div class="flex flex-col space-y-6">
-    <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-bold">{{ __('Shopping Cart') }}</h1>
-        @php($cartItemCount = Cart::items()->count())
-        @if ($cartItemCount > 0)
+    @php($cartItemCount = Cart::items()->count())
+    @if ($cartItemCount > 0)
+        <div class="flex justify-end">
             <span class="text-sm text-base/70">{{ $cartItemCount }}
                 {{ $cartItemCount === 1 ? __('item') : __('items') }}</span>
-        @endif
-    </div>
+        </div>
+    @endif
 
     <div class="flex flex-col md:grid md:grid-cols-4 gap-6">
         <div class="flex flex-col col-span-3 gap-4">
@@ -26,7 +25,7 @@
                 </div>
             @endif
 
-            @foreach (Cart::items() as $key => $item)
+            @foreach (Cart::items() as $item)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
                     <div class="flex flex-col sm:flex-row justify-between p-4 sm:p-5 gap-4">
                         <div class="flex flex-col gap-2">
@@ -62,49 +61,32 @@
                                 @if ($item->product->allow_quantity == 'combined')
                                     <div
                                         class="flex items-center bg-background rounded-lg border border-neutral/20 overflow-hidden">
-                                        <button
-                                            wire:click="updateQuantity({{ $key }}, {{ $item->quantity - 1 }})"
-                                            class="px-3 py-2 hover:bg-neutral/5 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M20 12H4" />
-                                            </svg>
-                                        </button>
-                                        <span class="px-3 font-medium">{{ $item->quantity }}</span>
-                                        <button
-                                            wire:click="updateQuantity({{ $key }}, {{ $item->quantity + 1 }})"
-                                            class="px-3 py-2 hover:bg-neutral/5 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 4v16m8-8H4" />
-                                            </svg>
-                                        </button>
+                                        <x-button.secondary
+                                            wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity - 1 }})"
+                                            class="h-full !w-fit">-
+                                        </x-button.secondary>
+                                        <x-form.input class="h-10 text-center" disabled divClass="!mt-0 !w-14"
+                                            value="{{ $item->quantity }}" name="quantity" />
+                                        <x-button.secondary
+                                            wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity + 1 }})"
+                                            class="h-full !w-fit">+
+                                        </x-button.secondary>
                                     </div>
                                 @endif
 
-                                <a href="{{ route('products.checkout', [$item->product->category, $item->product, 'edit' => $key]) }}"
+                                <a href="{{ route('products.checkout', [$item->product->category, $item->product, 'edit' => $item->id]) }}"
                                     wire:navigate>
-                                    <x-button.secondary class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 mr-1" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
+                                    <x-button.primary class="h-fit w-fit">
                                         {{ __('product.edit') }}
-                                    </x-button.secondary>
+                                    </x-button.primary>
                                 </a>
 
-                                <button wire:click="removeProduct({{ $key }})"
-                                    class="flex items-center px-3 py-2 text-error hover:bg-error/5 border border-neutral/20 rounded-lg transition-colors duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4 mr-1" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                    {{ __('product.remove') }}
-                                </button>
+                                <x-button.danger wire:click="removeProduct({{ $item->id }})" class="h-fit !w-fit">
+                                    <x-loading target="removeProduct({{ $item->id }})" />
+                                    <div wire:loading.remove wire:target="removeProduct({{ $item->id }})">
+                                        {{ __('product.remove') }}
+                                    </div>
+                                </x-button.danger>
                             </div>
                         </div>
                     </div>
@@ -187,8 +169,7 @@
                                     Auth::user()->credits()->where('currency_code', Cart::get()->first()->price->currency->code)->exists() &&
                                     Auth::user()->credits()->where('currency_code', Cart::get()->first()->price->currency->code)->first()->amount > 0)
                                 <div class="p-3 rounded-lg bg-neutral/5 border border-neutral/10">
-                                    <x-form.checkbox wire:model="use_credits" name="use_credits"
-                                        label="Use Credits" />
+                                    <x-form.checkbox wire:model="use_credits" name="use_credits" label="Use Credits" />
                                 </div>
                             @endif
                         @endif
