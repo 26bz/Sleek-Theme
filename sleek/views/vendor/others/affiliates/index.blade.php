@@ -41,21 +41,18 @@
                     <p class="text-sm text-base/60 mt-1">{{ __('affiliates::affiliate.your-affiliate-link') }}</p>
                 </div>
 
-                <div class="p-6" x-data="{ copied: false }">
+                <div class="p-6">
                     <div class="flex flex-col sm:flex-row gap-3">
                         <x-form.input value="{{ $referralLink }}" name="ref" divClass="sm:flex-1 !mt-0" type="text"
                             readonly />
 
-                        <div class="flex flex-col gap-2 sm:w-auto">
+                        <div class="flex sm:w-auto">
                             <x-button.primary type="button"
                                 class="w-full sm:w-auto sm:!w-fit flex items-center justify-center gap-2"
-                                x-on:click.prevent="if (navigator.clipboard) { navigator.clipboard.writeText('{{ $referralLink }}').then(() => { copied = true; setTimeout(() => copied = false, 2000); }); }">
+                                x-on:click.prevent="if (navigator.clipboard) { navigator.clipboard.writeText('{{ $referralLink }}'); }">
                                 <x-ri-file-copy-line class="size-4" />
                                 {{ __('affiliates::affiliate.copy') }}
                             </x-button.primary>
-
-                            <span x-show="copied" x-transition
-                                class="text-xs font-medium text-success text-center">{{ __('general.copied') }}</span>
                         </div>
                     </div>
                 </div>
