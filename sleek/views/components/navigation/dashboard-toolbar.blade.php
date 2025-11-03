@@ -17,13 +17,32 @@
     <div class="w-full bg-background-secondary border-b border-neutral/20 fixed top-16 z-10 h-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 h-full">
             <div class="flex items-center justify-between h-full">
-                <div class="flex items-center gap-0.5 min-w-0 overflow-x-auto">
+                <div class="flex items-center gap-0.5 min-w-0 flex-1 overflow-x-auto">
                     @php
                         $accountNav = null;
                         $otherNavs = [];
 
                         foreach ($dashboardLinks as $nav) {
-                            if (strtolower($nav['name']) === 'account') {
+                            $isAccountNav = false;
+
+                            if (isset($nav['route']) && $nav['route'] === 'account') {
+                                $isAccountNav = true;
+                            }
+
+                            if (!$isAccountNav && isset($nav['url']) && $nav['url'] === route('account')) {
+                                $isAccountNav = true;
+                            }
+
+                            if (!$isAccountNav && isset($nav['children'])) {
+                                foreach ($nav['children'] as $child) {
+                                    if (($child['route'] ?? null) === 'account' || ($child['url'] ?? null) === route('account')) {
+                                        $isAccountNav = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if ($isAccountNav) {
                                 $accountNav = $nav;
                             } else {
                                 $otherNavs[] = $nav;
@@ -81,10 +100,10 @@
                         <button @click="open = !open" @keydown.escape.window="open = false"
                             class="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold transition-all hover:text-primary {{ $accountNav['active'] ? 'text-primary' : 'text-base/80' }}">
                             <x-ri-user-3-line class="size-4 md:hidden" />
-                            <span class="hidden md:flex items-center gap-2">
-                                <x-ri-user-3-line class="size-4" />
-                                <span>{{ $accountNav['name'] }}</span>
-                                <x-ri-arrow-down-s-line class="size-3 opacity-60 transition-transform"
+                            <span class="hidden md:flex items-center gap-2 flex-nowrap">
+                                <x-ri-user-3-line class="size-4 flex-shrink-0" />
+                                <span class="truncate max-w-[12rem]" title="{{ $accountNav['name'] }}">{{ $accountNav['name'] }}</span>
+                                <x-ri-arrow-down-s-line class="size-3 opacity-60 transition-transform flex-shrink-0"
                                     x-bind:class="{ 'rotate-180': open }" />
                             </span>
                         </button>
