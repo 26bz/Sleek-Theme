@@ -21,7 +21,7 @@
                             <div class="p-4 pt-0 opacity-70">
                                 @foreach ($nav['children'] as $child)
                                     <div class="flex items-center space-x-2">
-                                        <x-navigation.link :href="route($child['route'], $child['params'] ?? [])" :spa="$child['spa'] ?? true"
+                                        <x-navigation.link :href="$child['url']" :spa="$child['spa'] ?? true"
                                             class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                             {{ $child['name'] }}
                                         </x-navigation.link>
@@ -33,7 +33,7 @@
                 </div>
             @else
                 <div class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                    <x-navigation.link :href="route($nav['route'], $nav['params'] ?? [])" :spa="$nav['spa'] ?? true" class="w-full">
+                    <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true" class="w-full">
                         @isset($nav['icon'])
                             <x-dynamic-component :component="$nav['icon']"
                                 class="size-5 {{ $nav['active'] ? 'text-primary' : 'fill-base/50' }}" />
@@ -71,7 +71,7 @@
                                 @foreach ($nav['children'] as $child)
                                     @if ($child['condition'] ?? true)
                                         <div class="flex items-center space-x-2">
-                                            <x-navigation.link :href="route($child['route'], $child['params'] ?? [])" :spa="$child['spa'] ?? true"
+                                            <x-navigation.link :href="$child['url']" :spa="$child['spa'] ?? true"
                                                 class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                                 {{ $child['name'] }}
                                             </x-navigation.link>
@@ -84,7 +84,7 @@
                 </div>
             @else
                 <div class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                    <x-navigation.link :href="route($nav['route'], $nav['params'] ?? [])" :spa="$nav['spa'] ?? true" class="w-full">
+                    <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true" class="w-full">
                         @isset($nav['icon'])
                             <x-dynamic-component :component="$nav['icon']"
                                 class="size-5 {{ $nav['active'] ? 'text-primary' : 'fill-base/50' }}" />

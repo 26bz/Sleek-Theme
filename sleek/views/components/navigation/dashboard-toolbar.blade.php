@@ -56,7 +56,7 @@
                                         class="absolute left-0 mt-1 w-48 bg-background-secondary rounded-md shadow-xl border border-neutral/20 py-1">
                                         @foreach ($nav['children'] as $child)
                                             @if ($child['condition'] ?? true)
-                                                <a href="{{ $child['url'] ?? (isset($child['route']) ? route($child['route'], $child['params'] ?? []) : '#') }}"
+                                                <a href="{{ $child['url'] }}"
                                                     @if ($child['spa'] ?? true) wire:navigate @endif
                                                     @click="open = false"
                                                     class="block px-3 py-1.5 text-xs whitespace-nowrap hover:bg-primary/5 transition-colors {{ $child['active'] ? 'text-primary font-semibold bg-primary/5' : 'text-base hover:text-primary' }}">
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         @else
-                            <x-navigation.link :href="$nav['url'] ?? (isset($nav['route']) ? route($nav['route'], $nav['params'] ?? []) : '#')" :spa="$nav['spa'] ?? true"
+                            <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true"
                                 class="flex items-center px-3 py-2 {{ $nav['active'] ? 'text-primary' : '' }}">
                                 {{ $nav['name'] }}
                             </x-navigation.link>
@@ -101,7 +101,7 @@
                                 <div class="py-1">
                                     @foreach ($accountNav['children'] as $child)
                                         @if ($child['condition'] ?? true)
-                                            <a href="{{ $child['url'] ?? (isset($child['route']) ? route($child['route'], $child['params'] ?? []) : '#') }}"
+                                            <a href="{{ $child['url'] }}"
                                                 @if ($child['spa'] ?? true) wire:navigate @endif
                                                 @click="open = false"
                                                 class="block px-4 py-2 text-sm hover:bg-primary/5 transition-colors {{ $child['active'] ? 'text-primary font-semibold bg-primary/5' : 'text-base/80 hover:text-primary' }}">

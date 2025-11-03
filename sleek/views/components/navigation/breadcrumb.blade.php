@@ -1,5 +1,8 @@
 @php
-    $currentRoute = request()->livewireRoute();
+    $currentUrl = url()->current();
+    $currentPath = parse_url($currentUrl, PHP_URL_PATH) ?? '/';
+    $currentPath = $currentPath === '' ? '/' : $currentPath;
+    $normalizedCurrentUrl = rtrim($currentUrl, '/');
 
     $navigation = [\App\Classes\Navigation::getLinks()];
 
@@ -8,15 +11,32 @@
         $navigation[] = \App\Classes\Navigation::getDashboardLinks();
     }
 
-    function findBreadcrumb($items, $currentRoute)
+    function normalizeNavigationUrl($url)
+    {
+        if (!is_string($url) || $url === '' || $url === '#') {
+            return [null, null];
+        }
+
+        $fullUrl = filter_var($url, FILTER_VALIDATE_URL) ? $url : url($url);
+        $fullUrl = rtrim($fullUrl, '/');
+
+        $path = parse_url($fullUrl, PHP_URL_PATH) ?? '/';
+        $path = $path === '' ? '/' : $path;
+
+        return [$fullUrl, $path];
+    }
+
+    function findBreadcrumb($items, $currentUrl, $currentPath)
     {
         foreach ($items as $item) {
-            if (isset($item['route']) && $item['route'] === $currentRoute) {
+            [$itemUrl, $itemPath] = normalizeNavigationUrl($item['url'] ?? null);
+
+            if ($itemUrl && ($itemUrl === $currentUrl || $itemPath === $currentPath)) {
                 return [$item];
             }
 
             if (!empty($item['children'])) {
-                $childTrail = findBreadcrumb($item['children'], $currentRoute);
+                $childTrail = findBreadcrumb($item['children'], $currentUrl, $currentPath);
                 if (!empty($childTrail)) {
                     return array_merge([$item], $childTrail);
                 }
@@ -28,7 +48,7 @@
 
     $breadcrumbs = [];
     foreach ($navigation as $group) {
-        $breadcrumbs = findBreadcrumb($group, $currentRoute);
+        $breadcrumbs = findBreadcrumb($group, $normalizedCurrentUrl, $currentPath);
         if (!empty($breadcrumbs)) {
             break;
         }
@@ -51,7 +71,7 @@
                     {{ $breadcrumb['name'] ?? '' }}
                 </span>
             @else
-                <a href="{{ isset($breadcrumb['route']) ? route($breadcrumb['route'], $breadcrumb['params'] ?? []) : '#' }}"
+                <a href="{{ $breadcrumb['url'] ?? (isset($breadcrumb['route']) ? route($breadcrumb['route'], $breadcrumb['params'] ?? []) : '#') }}"
                     class="text-lg font-bold hover:text-primary">
                     {{ $breadcrumb['name'] ?? '' }}
                 </a>

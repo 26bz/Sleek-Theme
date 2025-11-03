@@ -58,7 +58,7 @@
                     @foreach (\App\Classes\Navigation::getLinks() as $nav)
                         @if (!isset($nav['children']) || empty($nav['children']))
                             <li>
-                                <a href="{{ $nav['url'] ?? (isset($nav['route']) ? route($nav['route'], $nav['params'] ?? []) : '#') }}"
+                                <a href="{{ $nav['url'] }}"
                                     class="text-sm text-base/70 hover:text-primary transition-colors"
                                     @if (isset($nav['spa']) && $nav['spa']) wire:navigate @endif>
                                     {{ $nav['name'] }}
