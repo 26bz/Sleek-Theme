@@ -7,9 +7,6 @@
             </article>
         </div>
         <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
-            <div class="border-b border-neutral/20 p-4">
-                <h2 class="font-medium">{{ __('product.categories') }}</h2>
-            </div>
             <div class="p-2">
                 @foreach ($categories as $ccategory)
                     <a href="{{ route('category.show', ['category' => $ccategory->slug]) }}" wire:navigate
