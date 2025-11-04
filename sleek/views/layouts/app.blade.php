@@ -11,11 +11,12 @@
             - {{ $title }}
         @endisset
     </title>
+    @livewireStyles
     @vite(['themes/' . config('settings.theme') . '/js/app.js', 'themes/' . config('settings.theme') . '/css/app.css'], config('settings.theme'))
     @include('layouts.colors')
 
-    @if (config('settings.logo'))
-        <link rel="icon" href="{{ Storage::url(config('settings.logo')) }}" type="image/png">
+    @if (config('settings.favicon'))
+        <link rel="icon" href="{{ Storage::url(config('settings.favicon')) }}">
     @endif
     @isset($title)
         <meta
@@ -45,32 +46,34 @@
     {!! hook('body') !!}
     <x-navigation />
     <x-navigation.dashboard-toolbar />
+    @php
+        $isDashboardPage =
+            auth()->check() &&
+            (request()->routeIs('dashboard*') ||
+                request()->routeIs('services*') ||
+                request()->routeIs('invoices*') ||
+                request()->routeIs('tickets*') ||
+                request()->routeIs('account*') ||
+                request()->routeIs('profile*') ||
+                request()->routeIs('affiliate*'));
+        $dashboardPadding = 'pt-[7.5rem]';
+        $regularPadding = 'pt-[6.5rem]';
+    @endphp
     <div class="w-full flex flex-grow">
         <div class="flex flex-col flex-grow overflow-auto">
-            @php
-                $isDashboardPage =
-                    auth()->check() &&
-                    (request()->routeIs('dashboard*') ||
-                        request()->routeIs('services*') ||
-                        request()->routeIs('invoices*') ||
-                        request()->routeIs('tickets*') ||
-                        request()->routeIs('account*') ||
-                        request()->routeIs('profile*'));
-
-                $dashboardPadding = 'pt-[7.5rem]';
-                $regularPadding = 'pt-[6.5rem]';
-            @endphp
             <main
                 class="container mx-auto max-w-7xl px-6 lg:px-8 flex-grow {{ $isDashboardPage ? $dashboardPadding : $regularPadding }}">
                 {{ $slot }}
             </main>
             <x-notification />
+            <x-confirmation />
             <div class="pt-8">
                 <x-navigation.footer />
             </div>
         </div>
         <x-impersonating />
     </div>
+    @livewireScriptConfig
     {!! hook('footer') !!}
 </body>
 

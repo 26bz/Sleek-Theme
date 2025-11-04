@@ -1,39 +1,15 @@
 import { Livewire, Alpine } from '../../../vendor/livewire/livewire/dist/livewire.esm';
 
 document.addEventListener('livewire:init', () => {
-  Livewire.hook('request', ({ fail }) => {
-    fail(({ status, preventDefault }) => {
-      if (status === 419) {
-        window.location.reload()
+    Livewire.hook('request', ({ fail }) => {
+        fail(({ status, preventDefault }) => {
+            if (status === 419) {
+                window.location.reload()
 
-        preventDefault()
-      }
-    })
-  })
-})
-
-let currentBreakpoint = window.innerWidth < 768 ? 'mobile' : 'desktop'
-
-window.addEventListener('resize', () => {
-  const newBreakpoint = window.innerWidth < 768 ? 'mobile' : 'desktop'
-
-  if (newBreakpoint !== currentBreakpoint) {
-    currentBreakpoint = newBreakpoint
-
-    document.querySelectorAll('[x-data]').forEach(el => {
-      if (el.__x) {
-        el.__x.$nextTick(() => {
-          el.__x.updateElements(el)
+                preventDefault()
+            }
         })
-      }
     })
-
-    window.dispatchEvent(
-      new CustomEvent('breakpoint-changed', {
-        detail: { breakpoint: currentBreakpoint },
-      })
-    )
-  }
 })
 
 Alpine.store('notifications', {
@@ -74,6 +50,7 @@ Alpine.store('notifications', {
             .filter(notification => notification.show) // This line filters out notifications that are not shown
     }
 })
+
 Alpine.store('confirmation', {
     show: false,
     loading: false,
