@@ -123,18 +123,20 @@
 
                         @if ($service->cancellable)
                             <x-button.danger class="flex items-center gap-2" wire:click="$set('showCancel', true)">
-                                <span wire:loading.remove wire:target="$set('showCancel', true)">
+                                <div class="flex items-center gap-2" wire:loading.remove wire:target="$set('showCancel', true)">
                                     <x-ri-close-circle-line class="size-4" />
                                     {{ __('services.cancel') }}
-                                </span>
-                                <x-loading target="$set('showCancel', true)" />
+                                </div>
+                                <div wire:loading wire:target="$set('showCancel', true)" class="flex items-center">
+                                    <x-loading target="$set('showCancel', true)" />
+                                </div>
                             </x-button.danger>
                         @endif
                     </div>
 
                     @if (count($buttons) > 0)
                         <div class="bg-background rounded-lg border border-neutral/10 p-4">
-                            <h3 class="text-sm font-medium mb-3">{{ __('services.additional_actions') }}</h3>
+                            <h3 class="text-sm font-medium mb-3">{{ __('services.actions') }}</h3>
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($buttons as $button)
                                     @if (isset($button['function']))
