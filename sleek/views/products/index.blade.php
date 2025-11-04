@@ -106,7 +106,7 @@
                     <div class="mt-auto">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-primary">
-                                {{ $product->price() }}
+                                {{ $product->price()->formatted->price }}
                             </h3>
                         </div>
 
@@ -119,13 +119,23 @@
                                 </x-button.primary>
                             </a>
                         @else
-                            <a href="{{ route('products.show', ['category' => $product->category, 'product' => $product->slug]) }}"
-                                class="block w-full" wire:navigate>
-                                <x-button.primary class="w-full justify-center">
-                                    <x-ri-eye-fill class="size-4 mr-2" />
-                                    {{ __('common.button.view') }}
-                                </x-button.primary>
-                            </a>
+                            <div class="flex items-center gap-2">
+                                <a href="{{ route('products.show', ['category' => $product->category, 'product' => $product->slug]) }}"
+                                    class="flex-grow" wire:navigate>
+                                    <x-button.primary class="w-full justify-center">
+                                        <x-ri-eye-fill class="size-4 mr-2" />
+                                        {{ __('common.button.view') }}
+                                    </x-button.primary>
+                                </a>
+                                @if ($product->stock !== 0 && $product->price()->available)
+                                    <a href="{{ route('products.checkout', ['category' => $category, 'product' => $product->slug]) }}"
+                                        wire:navigate>
+                                        <x-button.secondary>
+                                            <x-ri-shopping-bag-4-fill class="size-5" />
+                                        </x-button.secondary>
+                                    </a>
+                                @endif
+                            </div>
                         @endif
                     </div>
                 </div>

@@ -1,178 +1,142 @@
-<div class="flex flex-col space-y-6">
-    @php($cartItemCount = Cart::items()->count())
-    @if ($cartItemCount > 0)
-        <div class="flex justify-end">
-            <span class="text-sm text-base/70">{{ $cartItemCount }}
-                {{ $cartItemCount === 1 ? __('item') : __('items') }}</span>
-        </div>
-    @endif
-
-    <div class="flex flex-col md:grid md:grid-cols-4 gap-6">
-        <div class="flex flex-col col-span-3 gap-4">
-            @if ($cartItemCount === 0)
-                <div class="bg-background-secondary border border-neutral/20 rounded-lg p-8 text-center">
-                    <div class="flex flex-col items-center justify-center space-y-4">
-                        <div class="bg-neutral/5 rounded-full p-4 inline-block">
+<div class="container max-w-7xl mx-auto px-6 lg:px-8 pt-6 pb-12">
+    <div class="grid md:grid-cols-4 gap-6">
+        <div class="col-span-3 flex flex-col gap-4">
+            @if (Cart::items()->count() === 0)
+                <div class="bg-background-secondary border border-neutral/20 rounded-lg p-8 text-center shadow-sm">
+                    <div class="flex flex-col items-center space-y-4">
+                        <span class="bg-neutral/5 rounded-full p-4">
                             <x-ri-shopping-cart-line class="size-12 text-base/50" />
-                        </div>
-                        <h2 class="text-xl font-medium">
-                            {{ __('product.empty_cart') }}
-                        </h2>
-                        <p class="text-base/70 max-w-md mx-auto">
-                            {{ __('Your shopping cart is currently empty.') }}
-                        </p>
+                        </span>
+                        <h1 class="text-2xl font-semibold">{{ __('product.empty_cart') }}</h1>
+                        <p class="text-base/70 max-w-md">{{ __('product.empty_cart') }}</p>
                     </div>
                 </div>
             @endif
 
             @foreach (Cart::items() as $item)
-                <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
-                    <div class="flex flex-col sm:flex-row justify-between p-4 sm:p-5 gap-4">
-                        <div class="flex flex-col gap-2">
-                            <h2 class="text-lg font-medium">
-                                {{ $item->product->name }}
-                            </h2>
-                            @php($configOptions = collect($item->config_options ?? []))
-                            @if ($configOptions->isNotEmpty())
-                                <div class="text-sm text-base/70 bg-neutral/5 p-3 rounded-lg border border-neutral/10">
-                                    @foreach ($configOptions as $option)
-                                        <div class="flex justify-between gap-4 mb-1 last:mb-0">
-                                            <span class="font-medium">{{ $option['option_name'] ?? '' }}:</span>
-                                            <span>{{ $option['value_name'] ?? '' }}</span>
-                                        </div>
-                                    @endforeach
+                <div class="bg-background-secondary border border-neutral/20 rounded-lg p-4 sm:p-5 shadow-sm flex flex-col gap-4">
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-xl font-semibold sm:text-2xl">{{ $item->product->name }}</h2>
+                        <div class="text-sm text-base/70 space-y-1">
+                            @foreach ($item->config_options as $option)
+                                <div>
+                                    <span class="font-medium text-base/80">{{ $option['option_name'] }}:</span>
+                                    <span>{{ $option['value_name'] }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                        <div class="text-right sm:text-left">
+                            <div class="text-xl font-semibold">
+                                {{ $item->price->format($item->price->total * $item->quantity) }}
+                            </div>
+                            @if ($item->quantity > 1)
+                                <div class="text-sm text-base/60">
+                                    {{ $item->price }} each
                                 </div>
                             @endif
                         </div>
 
-                        <div class="flex flex-col sm:items-end gap-4">
-                            <div class="bg-neutral/5 px-3 py-2 rounded-lg border border-neutral/10 text-right">
-                                <span class="text-lg font-medium text-primary">
-                                    {{ $item->price->format($item->price->price * $item->quantity) }}
-                                </span>
-                                @if ($item->quantity > 1)
-                                    <div class="text-xs text-base/70 mt-1">
-                                        {{ $item->price }} {{ __('each') }}
-                                    </div>
-                                @endif
-                            </div>
+                        <div class="flex flex-wrap items-center justify-end gap-2">
+                            @if ($item->product->allow_quantity == 'combined')
+                                <div class="flex items-center bg-background border border-neutral/20 rounded-lg overflow-hidden">
+                                    <x-button.secondary wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity - 1 }})"
+                                        class="h-full !w-fit">-
+                                    </x-button.secondary>
+                                    <x-form.input class="h-10 text-center" disabled divClass="!mt-0 !w-14" value="{{ $item->quantity }}" name="quantity" />
+                                    <x-button.secondary wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity + 1 }})"
+                                        class="h-full !w-fit">+
+                                    </x-button.secondary>
+                                </div>
+                            @endif
 
-                            <div class="flex flex-wrap gap-2 justify-end">
-                                @if ($item->product->allow_quantity == 'combined')
-                                    <div
-                                        class="flex items-center bg-background rounded-lg border border-neutral/20 overflow-hidden">
-                                        <x-button.secondary
-                                            wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity - 1 }})"
-                                            class="h-full !w-fit">-
-                                        </x-button.secondary>
-                                        <x-form.input class="h-10 text-center" disabled divClass="!mt-0 !w-14"
-                                            value="{{ $item->quantity }}" name="quantity" />
-                                        <x-button.secondary
-                                            wire:click="updateQuantity({{ $item->id }}, {{ $item->quantity + 1 }})"
-                                            class="h-full !w-fit">+
-                                        </x-button.secondary>
-                                    </div>
-                                @endif
+                            @php
+                                $optionsQuery = collect($item->config_options ?? [])
+                                    ->filter(fn ($option) => isset($option['value']) && $option['value'] !== '' && $option['value'] !== null)
+                                    ->mapWithKeys(fn ($option) => [$option['option_id'] => $option['value']])
+                                    ->all();
 
-                                <a href="{{ route('products.checkout', [$item->product->category, $item->product, 'edit' => $item->id]) }}"
-                                    wire:navigate>
-                                    <x-button.primary class="h-fit w-fit">
-                                        {{ __('product.edit') }}
-                                    </x-button.primary>
-                                </a>
+                                $configQuery = collect($item->checkout_config ?? [])
+                                    ->filter(fn ($value) => $value !== '' && $value !== null)
+                                    ->all();
 
-                                <x-button.danger wire:click="removeProduct({{ $item->id }})" class="h-fit !w-fit">
-                                    <x-loading target="removeProduct({{ $item->id }})" />
-                                    <div wire:loading.remove wire:target="removeProduct({{ $item->id }})">
-                                        {{ __('product.remove') }}
-                                    </div>
-                                </x-button.danger>
-                            </div>
+                                $routeParams = [
+                                    'category' => $item->product->category,
+                                    'product' => $item->product,
+                                    'edit' => $item->id,
+                                    'plan' => $item->plan->id,
+                                ];
+
+                                if (!empty($optionsQuery)) {
+                                    $routeParams['options'] = $optionsQuery;
+                                }
+
+                                if (!empty($configQuery)) {
+                                    $routeParams['config'] = $configQuery;
+                                }
+                            @endphp
+
+                            <a href="{{ route('products.checkout', $routeParams) }}" wire:navigate>
+                                <x-button.primary class="h-fit w-fit">
+                                    {{ __('product.edit') }}
+                                </x-button.primary>
+                            </a>
+
+                            <x-button.danger wire:click="removeProduct({{ $item->id }})" class="h-fit !w-fit">
+                                <x-loading target="removeProduct({{ $item->id }})" />
+                                <div wire:loading.remove wire:target="removeProduct({{ $item->id }})">
+                                    {{ __('product.remove') }}
+                                </div>
+                            </x-button.danger>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
+
         <div class="flex flex-col gap-4">
-            @if ($cartItemCount > 0)
-                <div
-                    class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm sticky top-24">
-                    <div class="border-b border-neutral/20 p-4">
-                        <h2 class="font-medium">{{ __('product.order_summary') }}</h2>
-                    </div>
-                    <div class="p-5 space-y-5">
-                        @if (!$coupon)
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium">{{ __('Discount Code') }}</label>
-                                <div class="flex gap-2">
-                                    <x-form.input wire:model="coupon" name="coupon" placeholder="Enter code"
-                                        class="flex-grow" divClass="!mt-0" />
-                                    <x-button.primary wire:click="applyCoupon" wire:loading.attr="disabled"
-                                        class="whitespace-nowrap">
-                                        <span wire:loading wire:target="applyCoupon">
-                                            <x-ri-loader-4-line class="size-4 animate-spin mr-1" />
-                                        </span>
-                                        <span wire:loading.remove wire:target="applyCoupon">
-                                            {{ __('product.apply') }}
-                                        </span>
-                                    </x-button.primary>
+            @if (Cart::items()->count() > 0)
+                <div class="bg-background-secondary border border-neutral/20 rounded-lg p-5 shadow-sm sticky top-24 space-y-5">
+                    <h2 class="text-2xl font-semibold">{{ __('product.order_summary') }}</h2>
+
+                    @if (!$coupon)
+                        <div class="space-y-2">
+                            <x-form.input wire:model="coupon" name="coupon" label="Coupon" />
+                            <x-button.primary wire:click="applyCoupon" wire:loading.attr="disabled" class="w-full justify-center">
+                                <x-loading target="applyCoupon" />
+                                <div wire:loading.remove wire:target="applyCoupon">
+                                    {{ __('product.apply') }}
                                 </div>
-                            </div>
-                        @else
-                            <div
-                                class="flex justify-between items-center bg-neutral/5 p-3 rounded-lg border border-neutral/10">
-                                <div>
-                                    <span class="text-xs text-base/70">{{ __('Coupon applied') }}</span>
-                                    <div class="font-medium">{{ $coupon->code }}</div>
-                                </div>
-                                <button wire:click="removeCoupon"
-                                    class="text-base/70 hover:text-error transition-colors duration-200">
-                                    <x-ri-close-circle-line class="size-5" />
-                                </button>
-                            </div>
-                        @endif
-
-                        <div class="bg-neutral/5 p-4 rounded-lg border border-neutral/10 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-base/70">{{ __('invoices.subtotal') }}</span>
-                                <span class="font-medium">{{ $total->format($total->price - $total->tax) }}</span>
-                            </div>
-
-                            @if ($total->tax > 0)
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm text-base/70">{{ \App\Classes\Settings::tax()->name }}
-                                        ({{ \App\Classes\Settings::tax()->rate }}%)</span>
-                                    <span class="font-medium">{{ $total->formatted->tax }}</span>
-                                </div>
-                            @endif
-
-                            <div class="border-t border-neutral/10 mt-2 pt-2"></div>
-
-                            <div class="flex justify-between items-center">
-                                <span class="font-medium">{{ __('invoices.total') }}</span>
-                                <span class="text-lg font-semibold text-primary">{{ $total }}</span>
-                            </div>
+                            </x-button.primary>
                         </div>
+                    @else
+                        <div class="flex items-center justify-between bg-primary/5 border border-primary/20 rounded-lg px-3 py-2">
+                            <span class="text-sm font-medium">{{ $coupon->code }}</span>
+                            <x-button.secondary wire:click="removeCoupon" class="h-fit !w-fit">
+                                {{ __('product.remove') }}
+                            </x-button.secondary>
+                        </div>
+                    @endif
 
-                        @if ($total->price > 0)
-                            @if (count($gateways) > 1)
-                                <div>
-                                    <x-form.select wire:model.live="gateway" name="gateway" :label="__('product.payment_method')">
-                                        @foreach ($gateways as $gateway)
-                                            <option value="{{ $gateway->id }}">{{ $gateway->name }}</option>
-                                        @endforeach
-                                    </x-form.select>
-                                </div>
-                            @endif
-
-                            @if (Auth::check() &&
-                                    Auth::user()->credits()->where('currency_code', Cart::get()->first()->price->currency->code)->exists() &&
-                                    Auth::user()->credits()->where('currency_code', Cart::get()->first()->price->currency->code)->first()->amount > 0)
-                                <div class="p-3 rounded-lg bg-neutral/5 border border-neutral/10">
-                                    <x-form.checkbox wire:model="use_credits" name="use_credits" label="Use Credits" />
-                                </div>
-                            @endif
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-base/70">{{ __('invoices.subtotal') }}:</span>
+                            <span class="font-semibold">{{ $total->format($total->subtotal) }}</span>
+                        </div>
+                        @if ($total->tax > 0)
+                            <div class="flex justify-between">
+                                <span class="text-base/70">
+                                    {{ \App\Classes\Settings::tax()->name }} ({{ \App\Classes\Settings::tax()->rate }}%)
+                                </span>
+                                <span class="font-semibold">{{ $total->format($total->tax) }}</span>
+                            </div>
                         @endif
+                        <div class="flex justify-between text-lg font-semibold pt-2 border-t border-neutral/20">
+                            <span>{{ __('invoices.total') }}:</span>
+                            <span>{{ $total->format($total->total) }}</span>
+                        </div>
 
                         @if (config('settings.tos'))
                             <div class="p-3 rounded-lg bg-neutral/5 border border-neutral/10">
@@ -187,24 +151,11 @@
                         @endif
 
                         <x-button.primary wire:click="checkout" wire:loading.attr="disabled"
-                            class="w-full justify-center py-3">
-                            <span class="flex items-center justify-center gap-2" wire:loading wire:target="checkout">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 animate-spin" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                <span>{{ __('Processing...') }}</span>
-                            </span>
-                            <span class="flex items-center justify-center gap-2" wire:loading.remove
-                                wire:target="checkout">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                                <span>{{ __('product.checkout') }}</span>
-                            </span>
+                            class="w-full justify-center">
+                            <x-loading target="checkout" />
+                            <div wire:loading.remove wire:target="checkout">
+                                {{ __('product.checkout') }}
+                            </div>
                         </x-button.primary>
                     </div>
                 </div>

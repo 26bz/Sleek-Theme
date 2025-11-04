@@ -34,7 +34,7 @@
                                 <span
                                     class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-success/10 text-success border border-success/20">
                                     <x-ri-checkbox-circle-fill class="size-4 mr-1.5" />
-                                    In stock
+                                    {{ __('product.in_stock') }}
                                 </span>
                             @endif
                         </div>
@@ -67,7 +67,7 @@
             @if ($product->configOptions->count() > 0)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
                     <div class="border-b border-neutral/20 p-4">
-                        <h2 class="font-medium">{{ __('product.configuration_options') }}</h2>
+                        <h2 class="font-medium">{{ __('product.edit') }}</h2>
                     </div>
                     <div class="p-6">
                         <div class="space-y-6">
@@ -125,7 +125,7 @@
             @if (count($this->getCheckoutConfig()) > 0)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
                     <div class="border-b border-neutral/20 p-4">
-                        <h2 class="font-medium">{{ __('product.additional_options') }}</h2>
+                        <h2 class="font-medium">{{ __('product.edit') }}</h2>
                     </div>
                     <div class="p-6">
                         <div class="space-y-6">

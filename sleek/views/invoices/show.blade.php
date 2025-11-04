@@ -197,8 +197,7 @@
                                                 </td>
                                                 <td class="p-3 text-base/70">{{ $item->formattedPrice }}</td>
                                                 <td class="p-3 text-base/70">{{ $item->quantity }}</td>
-                                                <td class="p-3 text-right font-semibold">{{ $item->formattedTotal }}
-                                                </td>
+                                                <td class="p-3 text-right font-semibold">{{ $item->formattedTotal }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
