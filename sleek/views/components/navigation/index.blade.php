@@ -4,16 +4,23 @@
         slideOverOpen: false
     }" x-init="$watch('slideOverOpen', value => { document.documentElement.style.overflow = value ? 'hidden' : '' })" class="relative z-50 w-full h-auto">
 
+        @php
+            $navigationLinks = request()->route() ? \App\Classes\Navigation::getLinks() : [];
+            $accountDropdownLinks = request()->route() ? \App\Classes\Navigation::getAccountDropdownLinks() : [];
+        @endphp
+
         <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-row items-center justify-between w-full h-16">
 
             <div class="flex flex-row items-center">
                 <a href="{{ route('home') }}" class="flex flex-row items-center h-10" wire:navigate>
                     <x-logo class="h-10 mr-2 rtl:ml-2" />
-                    <span
-                        class="text-xl font-bold leading-none flex items-center text-base">{{ config('app.name') }}</span>
+                    @if (theme('logo_display', 'logo-and-name') !== 'logo-only')
+                        <span
+                            class="text-xl font-bold leading-none flex items-center text-base">{{ config('app.name') }}</span>
+                    @endif
                 </a>
                 <div class="md:flex hidden flex-row ml-7">
-                    @foreach (\App\Classes\Navigation::getLinks() as $nav)
+                    @foreach ($navigationLinks as $nav)
                         @if (isset($nav['children']) && count($nav['children']) > 0)
                             <div class="relative">
                                 <x-dropdown>
@@ -31,7 +38,8 @@
                                     </x-slot:trigger>
                                     <x-slot:content>
                                         @foreach ($nav['children'] as $child)
-                                            <x-navigation.link :href="$child['url']" :spa="isset($child['spa']) ? $nav['spa'] : true">
+                                            <x-navigation.link :href="$child['url']"
+                                                :spa="$child['spa'] ?? ($nav['spa'] ?? true)">
                                                 {{ $child['name'] }}
                                             </x-navigation.link>
                                         @endforeach
@@ -39,7 +47,8 @@
                                 </x-dropdown>
                             </div>
                         @else
-                            <x-navigation.link :href="$nav['url']" :spa="isset($nav['spa']) ? $nav['spa'] : true"
+                            <x-navigation.link :href="$nav['url']"
+                                :spa="$nav['spa'] ?? true"
                                 class="flex items-center p-3 {{ $nav['active'] ? 'text-primary' : '' }}">
                                 @isset($nav['icon'])
                                     <x-dynamic-component :component="$nav['icon']"
@@ -94,8 +103,9 @@
                                     <span class="text-sm text-base break-words">{{ auth()->user()->name }}</span>
                                     <span class="text-sm text-base break-words">{{ auth()->user()->email }}</span>
                                 </div>
-                                @foreach (\App\Classes\Navigation::getAccountDropdownLinks() as $nav)
-                                    <x-navigation.link :href="$nav['url']" :spa="isset($nav['spa']) ? $nav['spa'] : true">
+                                @foreach ($accountDropdownLinks as $nav)
+                                    <x-navigation.link :href="$nav['url']"
+                                        :spa="$nav['spa'] ?? true">
                                         {{ $nav['name'] }}
                                     </x-navigation.link>
                                 @endforeach
@@ -157,7 +167,7 @@
                         <div class="flex-1 min-h-0 overflow-y-auto">
                             <!-- Mobile Navigation Links -->
                             <div class="flex flex-col gap-2">
-                                @foreach (\App\Classes\Navigation::getLinks() as $nav)
+                                @foreach ($navigationLinks as $nav)
                                     @if (!empty($nav['children']))
                                         <div x-data="{ activeAccordion: {{ $nav['active'] ? 'true' : 'false' }} }"
                                             class="relative w-full mx-auto overflow-hidden text-sm font-normal">
@@ -179,7 +189,8 @@
                                                     <div class="p-4 pt-0 opacity-70">
                                                         @foreach ($nav['children'] as $child)
                                                             <div class="flex items-center space-x-2">
-                                                                <x-navigation.link :href="$child['url']" :spa="$child['spa'] ?? true"
+                                                                <x-navigation.link :href="$child['url']"
+                                                                    :spa="$child['spa'] ?? ($nav['spa'] ?? true)"
                                                                     class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                                                     {{ $child['name'] }}
                                                                 </x-navigation.link>
@@ -192,7 +203,8 @@
                                     @else
                                         <div
                                             class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                                            <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true" class="w-full">
+                                            <x-navigation.link :href="$nav['url']"
+                                                :spa="$nav['spa'] ?? true" class="w-full">
                                                 @isset($nav['icon'])
                                                     <x-dynamic-component :component="$nav['icon']"
                                                         class="size-5 {{ $nav['active'] ? 'text-primary' : 'text-base/70' }}" />
@@ -222,6 +234,8 @@
                                             <livewire:components.currency-switch />
                                         </x-slot:content>
                                     </x-dropdown>
+
+                                    <x-theme-toggle />
                                 </div>
                             </div>
                         </div>

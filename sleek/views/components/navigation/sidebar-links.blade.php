@@ -1,6 +1,11 @@
 <div class="lg:px-4 lg:py-6 flex flex-col gap-2">
     <div class="flex flex-col gap-2 md:hidden">
-        @foreach (\App\Classes\Navigation::getLinks() as $nav)
+        @php
+            $mobileNavigationLinks = request()->route() ? \App\Classes\Navigation::getLinks() : [];
+            $mobileDashboardLinks = request()->route() ? \App\Classes\Navigation::getDashboardLinks() : [];
+        @endphp
+
+        @foreach ($mobileNavigationLinks as $nav)
             @if (!empty($nav['children']))
                 <div x-data="{ activeAccordion: {{ $nav['active'] ? 'true' : 'false' }} }"
                     class="relative w-full mx-auto overflow-hidden text-sm font-normal divide-y divide-gray-200">
@@ -21,7 +26,8 @@
                             <div class="p-4 pt-0 opacity-70">
                                 @foreach ($nav['children'] as $child)
                                     <div class="flex items-center space-x-2">
-                                        <x-navigation.link :href="$child['url']" :spa="$child['spa'] ?? true"
+                                        <x-navigation.link :href="$child['url']"
+                                            :spa="$child['spa'] ?? true"
                                             class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                             {{ $child['name'] }}
                                         </x-navigation.link>
@@ -33,7 +39,8 @@
                 </div>
             @else
                 <div class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                    <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true" class="w-full">
+                    <x-navigation.link :href="$nav['url']"
+                        :spa="$nav['spa'] ?? true" class="w-full">
                         @isset($nav['icon'])
                             <x-dynamic-component :component="$nav['icon']"
                                 class="size-5 {{ $nav['active'] ? 'text-primary' : 'fill-base/50' }}" />
@@ -49,7 +56,7 @@
     </div>
 
     <div class="flex flex-col gap-2">
-        @foreach (\App\Classes\Navigation::getDashboardLinks() as $nav)
+        @foreach ($mobileDashboardLinks as $nav)
             @if (!empty($nav['children']))
                 <div x-data="{ activeAccordion: {{ $nav['active'] ? 'true' : 'false' }} }"
                     class="relative w-full mx-auto overflow-hidden text-sm font-normal divide-y divide-gray-200">
@@ -71,7 +78,8 @@
                                 @foreach ($nav['children'] as $child)
                                     @if ($child['condition'] ?? true)
                                         <div class="flex items-center space-x-2">
-                                            <x-navigation.link :href="$child['url']" :spa="$child['spa'] ?? true"
+                                            <x-navigation.link :href="$child['url']"
+                                                :spa="$child['spa'] ?? true"
                                                 class="{{ $child['active'] ? 'text-primary font-bold' : '' }}">
                                                 {{ $child['name'] }}
                                             </x-navigation.link>
@@ -84,7 +92,8 @@
                 </div>
             @else
                 <div class="flex items-center rounded-lg {{ $nav['active'] ? 'bg-primary/5' : 'hover:bg-primary/5' }}">
-                    <x-navigation.link :href="$nav['url']" :spa="$nav['spa'] ?? true" class="w-full">
+                    <x-navigation.link :href="$nav['url']"
+                        :spa="$nav['spa'] ?? true" class="w-full">
                         @isset($nav['icon'])
                             <x-dynamic-component :component="$nav['icon']"
                                 class="size-5 {{ $nav['active'] ? 'text-primary' : 'fill-base/50' }}" />
@@ -112,6 +121,8 @@
                     <livewire:components.currency-switch />
                 </x-slot:content>
             </x-dropdown>
+
+            <x-theme-toggle />
 
         </div>
     </div>

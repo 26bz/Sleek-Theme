@@ -1,5 +1,5 @@
 @php
-    $dashboardLinks = auth()->check() ? \App\Classes\Navigation::getDashboardLinks() : [];
+    $dashboardLinks = auth()->check() && request()->route() ? \App\Classes\Navigation::getDashboardLinks() : [];
     $hasDashboardLinks = !empty($dashboardLinks);
 
     $isDashboardPage =

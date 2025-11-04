@@ -24,13 +24,6 @@
                 </div>
 
                 <p class="text-base/60 text-sm">{{ __('errors.500.message') }}</p>
-
-                <a href="{{ route('home') }}" wire:navigate class="w-full sm:w-auto inline-block">
-                    <x-button.primary class="w-full sm:w-auto">
-                        <x-ri-arrow-left-line class="size-4" />
-                        {{ __('errors.404.return_home') }}
-                    </x-button.primary>
-                </a>
             </div>
         </div>
     </div>

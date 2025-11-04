@@ -54,8 +54,11 @@
 
             <div>
                 <h3 class="text-base font-semibold mb-4">{{ __('Quick Links') }}</h3>
+                @php
+                    $footerNavigationLinks = request()->route() ? \App\Classes\Navigation::getLinks() : [];
+                @endphp
                 <ul class="space-y-2">
-                    @foreach (\App\Classes\Navigation::getLinks() as $nav)
+                    @foreach ($footerNavigationLinks as $nav)
                         @if (!isset($nav['children']) || empty($nav['children']))
                             <li>
                                 <a href="{{ $nav['url'] }}"
