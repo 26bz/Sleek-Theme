@@ -1,4 +1,4 @@
-# Sleek Theme
+# Sleek Theme (Paymenter v1.4.X)
 
 Thank you for choosing the Sleek Theme! This theme is designed to enhance the look and feel of your Paymenter.
 
