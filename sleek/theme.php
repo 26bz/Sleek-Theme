@@ -7,6 +7,17 @@
 
 $toggleSettings = [
   [
+    'name' => 'logo_display',
+    'label' => 'Logo Display',
+    'type' => 'select',
+    'options' => [
+      'logo-only' => 'Logo only',
+      'logo-and-name' => 'Logo and Name',
+    ],
+    'default' => 'logo-and-name',
+    'description' => 'Control whether the navbar shows only the logo or both logo and company name',
+  ],
+  [
     'name' => 'direct_checkout',
     'label' => 'Direct Checkout',
     'type' => 'checkbox',
@@ -29,6 +40,17 @@ $toggleSettings = [
     'default' => true,
     'database_type' => 'boolean',
     'description' => 'Show the category description in the product overview page/homepage',
+  ],
+  [
+    'name' => 'logo_display',
+    'label' => 'Logo Display',
+    'type' => 'select',
+    'options' => [
+      'logo-only' => 'Logo only',
+      'logo-and-name' => 'Logo and Name',
+    ],
+    'default' => 'logo-and-name',
+    'description' => 'Control whether the navbar shows only the logo or both logo and company name',
   ],
   [
     'name' => 'force_dark_mode',
