@@ -28,7 +28,7 @@
     </button>
 
     <div x-ref="dropdown"
-        class="absolute mt-2 {{ $width ?? 'w-48' }} px-2 py-1 bg-background-secondary rounded-md shadow-lg z-10 border border-neutral"
+        class="absolute mt-2 {{ $width ?? 'w-48' }} p-2 bg-background-secondary rounded-xl shadow-lg z-10 border border-neutral/20"
         x-bind:style="{
             left: `-${adjustWidth}px`,
         }"

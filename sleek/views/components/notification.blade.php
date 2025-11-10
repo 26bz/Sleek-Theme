@@ -6,7 +6,7 @@
             x-transition:leave-end="opacity-0 translate-y-4" class="fixed bottom-4 right-4 z-50 max-w-sm"
             :style="'bottom: ' + (20 + index * 80) + 'px;'">
 
-            <div class="flex items-start gap-3 p-4 rounded-lg shadow-lg border border-neutral/20"
+            <div class="flex items-start gap-3 rounded-xl border border-neutral/20 bg-background-secondary p-4 shadow-lg transition-all duration-200 hover:border-neutral/30 hover:shadow-xl"
                 :class="{
                     'bg-success/10 border-success/20': notification.type === 'success',
                     'bg-error/10 border-error/20': notification.type === 'error',
@@ -16,7 +16,7 @@
                 }">
 
                 <div class="flex-shrink-0">
-                    <div class="p-1 rounded-full"
+                    <div class="p-1 rounded-full bg-neutral/5"
                         :class="{
                             'text-success': notification.type === 'success',
                             'text-error': notification.type === 'error',
@@ -43,12 +43,12 @@
                 </div>
 
                 <div class="flex-1 pt-0.5">
-                    <p class="text-sm font-medium" x-text="notification.message"></p>
+                    <p class="text-sm font-medium text-base" x-text="notification.message"></p>
                 </div>
 
                 <button @click.stop="$store.notifications.removeNotification(notification.id)"
-                    class="flex-shrink-0 ml-2 p-1 rounded-full hover:bg-neutral/10 transition-colors">
-                    <x-ri-close-line class="size-4 text-base/60" />
+                    class="flex-shrink-0 ml-2 p-1 rounded-full text-base/60 transition-colors hover:bg-neutral/10 hover:text-base">
+                    <x-ri-close-line class="size-4" />
                 </button>
             </div>
         </div>

@@ -1,5 +1,4 @@
 <div>
-    {{-- In work, do what you enjoy. --}}
     <x-dropdown width="w-84" :showArrow="false">
         <x-slot:trigger>
             <div class="relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral transition" x-data="{ hasNew: false }" x-on:new-notification.window="hasNew = true"
@@ -14,27 +13,27 @@
             </div>
         </x-slot:trigger>
         <x-slot:content>
-            <div class="w-full max-h-96 overflow-y-auto">
+            <div class="w-full max-h-96 overflow-y-auto p-3 space-y-3">
                 @if ($this->notifications->isEmpty())
-                <div class="p-4 text-center text-sm text-base/80">
+                <div class="rounded-xl border border-neutral/20 bg-background-secondary p-4 text-center text-sm text-base/80">
                     {{ __('No new notifications') }}
                 </div>
                 @else
                 @foreach ($this->notifications as $notification)
                 <div wire:click="goToNotification('{{ $notification->id }}')"
-                    class="block px-4 py-3 hover:bg-background-secondary/50 cursor-pointer @if (!$loop->last) border-b border-neutral/50 @endif">
+                    class="group block cursor-pointer rounded-xl border border-neutral/20 bg-background-secondary p-4 transition-all duration-200 hover:border-neutral/30 hover:shadow-sm">
                     <div class="flex items-start gap-3">
                         <x-ri-notification-3-fill
                             class="size-5 mt-1 flex-shrink-0 {{ $notification->read_at ? 'text-base/80' : 'text-primary' }}" />
                         <div class="flex flex-col">
-                            <span class="font-medium">{{ $notification->title }}</span>
+                            <span class="font-medium group-hover:text-primary transition-colors">{{ $notification->title }}</span>
                             <span class="text-sm text-base/80">{{ $notification->body }}</span>
-                            <div class="flex flex-row justify-between mt-1 text-xs text-base/60">
+                            <div class="flex flex-row justify-between mt-2 text-xs text-base/60">
                                 <p>
                                     {{ $notification->created_at->diffForHumans() }}
                                 </p>
 
-                                <button wire:click.stop="markAsRead('{{ $notification->id }}')" class="cursor-pointer"
+                                <button wire:click.stop="markAsRead('{{ $notification->id }}')" class="cursor-pointer text-primary/80 hover:text-primary transition-colors"
                                     type="button">
                                     {{ __('Mark as read') }}
                                 </button>
