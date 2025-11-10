@@ -1,6 +1,5 @@
 <div class="container mt-14 space-y-4">
-    <div class="flex flex-row justify-between">
-        <x-navigation.breadcrumb />
+    <div class="flex flex-row justify-end">
         <a href="{{ route('tickets.create') }}" wire:navigate>
             <x-button.primary
                 class="flex items-center justify-center gap-2 py-2.5 px-4 font-medium transition-all duration-200 hover:shadow-lg hover:shadow-primary/20">

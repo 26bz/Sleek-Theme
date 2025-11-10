@@ -1,6 +1,4 @@
 <div class="space-y-6">
-    <x-navigation.breadcrumb />
-
     <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
         <div>
             <div class="flex items-center gap-2">
