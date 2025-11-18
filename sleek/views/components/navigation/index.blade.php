@@ -1,5 +1,6 @@
 <nav
-    class="w-full bg-background-secondary border-b border-neutral/20 md:h-16 flex md:flex-row flex-col justify-between fixed top-0 z-20">
+    class="w-full bg-background-secondary border-b border-neutral/20 md:h-16 flex md:flex-row flex-col justify-between fixed top-0 z-20"
+    style="{{ $navTopStyle }}">
     <div x-data="{
         slideOverOpen: false
     }" x-init="$watch('slideOverOpen', value => { document.documentElement.style.overflow = value ? 'hidden' : '' })" class="relative z-50 w-full h-auto">
@@ -7,11 +8,16 @@
         @php
             $navigationLinks = request()->route() ? \App\Classes\Navigation::getLinks() : [];
             $accountDropdownLinks = request()->route() ? \App\Classes\Navigation::getAccountDropdownLinks() : [];
+
+            $isDenseNavigation = count($navigationLinks) >= 7;
+            $navPaddingClasses = $isDenseNavigation ? 'px-2 py-2' : 'p-3';
+            $navGapClasses = $isDenseNavigation ? 'gap-1' : 'gap-2';
+            $navTextSize = $isDenseNavigation ? 'text-xs md:text-sm' : 'text-sm';
         @endphp
 
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-row items-center justify-between w-full h-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-row items-center justify-between w-full h-16 gap-4 md:gap-6">
 
-            <div class="flex flex-row items-center">
+            <div class="flex flex-row items-center flex-1 min-w-0 gap-4">
                 <a href="{{ route('home') }}" class="flex flex-row items-center h-10" wire:navigate>
                     <x-logo class="h-10 mr-2 rtl:ml-2" />
                     @if (theme('logo_display', 'logo-and-name') !== 'logo-only')
@@ -19,15 +25,26 @@
                             class="text-xl font-bold leading-none flex items-center text-base">{{ config('app.name') }}</span>
                     @endif
                 </a>
-                <div class="md:flex hidden flex-row ml-7">
+                <div @class([
+                    'md:flex hidden items-center flex-1 min-w-0 ml-7',
+                    $isDenseNavigation ? 'gap-1' : 'gap-2',
+                ])>
                     @foreach ($navigationLinks as $nav)
                         @if (isset($nav['children']) && count($nav['children']) > 0)
-                            <div class="relative">
+                            <div @class([
+                                'relative',
+                                $isDenseNavigation ? 'flex-shrink min-w-0' : 'flex-shrink-0',
+                            ])>
                                 <x-dropdown>
                                     <x-slot:trigger>
                                         <div class="flex flex-col">
                                             <span
-                                                class="flex flex-row items-center p-3 text-sm font-semibold whitespace-nowrap text-base">
+                                                @class([
+                                                    'flex flex-row items-center font-semibold whitespace-nowrap text-base/90',
+                                                    $navPaddingClasses,
+                                                    $navGapClasses,
+                                                    $navTextSize,
+                                                ])>
                                                 @isset($nav['icon'])
                                                     <x-dynamic-component :component="$nav['icon']"
                                                         class="size-4 mr-2 {{ $nav['active'] ? 'text-primary' : 'text-base/70' }}" />
@@ -49,7 +66,7 @@
                         @else
                             <x-navigation.link :href="$nav['url']"
                                 :spa="$nav['spa'] ?? true"
-                                class="flex items-center p-3 {{ $nav['active'] ? 'text-primary' : '' }}">
+                                class="{{ $navPaddingClasses }} {{ $navTextSize }} {{ $isDenseNavigation ? 'flex-shrink min-w-0 ' . $navGapClasses : 'flex-shrink-0' }} {{ $nav['active'] ? 'text-primary' : '' }}">
                                 @isset($nav['icon'])
                                     <x-dynamic-component :component="$nav['icon']"
                                         class="size-4 mr-2 {{ $nav['active'] ? 'text-primary' : 'text-base/70' }}" />
@@ -63,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-row items-center gap-1">
+            <div class="flex flex-row items-center gap-1 flex-shrink-0">
                 <!-- Cart -->
                 <livewire:components.cart />
 
