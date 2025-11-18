@@ -44,18 +44,18 @@
             @if ($product->availablePlans()->count() > 1)
                 <div class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm">
                     <div class="border-b border-neutral/20 p-4">
-                        <h2 class="font-medium">{{ __('product.select_plan') }}</h2>
+                        <h2 class="font-medium">{{ __('services.change_plan') }}</h2>
                     </div>
                     <div class="p-6">
                         <x-form.select wire:model.live="plan_id" name="plan_id"
-                            label="{{ __('product.available_plans') }}">
+                            label="{{ __('services.upgrade_choose_product') }}">
                             @foreach ($product->availablePlans() as $availablePlan)
                                 <option value="{{ $availablePlan->id }}">
                                     {{ $availablePlan->name }} -
                                     {{ $availablePlan->price() }}
                                     @if ($availablePlan->price()->has_setup_fee)
                                         + {{ $availablePlan->price()->formatted->setup_fee }}
-                                        {{ __('product.setup_fee') }}
+                                        {{ __('product.checkout') }}
                                     @endif
                                 </option>
                             @endforeach
@@ -166,19 +166,19 @@
             <div
                 class="bg-background-secondary border border-neutral/20 rounded-lg overflow-hidden shadow-sm sticky top-24">
                 <div class="border-b border-neutral/20 p-4">
-                    <h2 class="font-medium">Order Summary</h2>
+                    <h2 class="font-medium">{{ __('product.order_summary') }}</h2>
                 </div>
 
                 <div class="p-6">
                     <div class="space-y-4 mb-6">
                         <div class="flex justify-between items-center">
-                            <span class="text-sm text-base/70">Product:</span>
+                            <span class="text-sm text-base/70">{{ __('services.product') }}:</span>
                             <span class="font-medium">{{ $product->name }}</span>
                         </div>
 
                         @if ($product->availablePlans()->count() > 1)
                             <div class="flex justify-between items-center">
-                                <span class="text-sm text-base/70">{{ __('product.plan') }}:</span>
+                                <span class="text-sm text-base/70">{{ __('services.current_plan') }}:</span>
                                 <span class="font-medium">{{ $plan->name }}</span>
                             </div>
                         @endif
@@ -187,7 +187,7 @@
 
                         <div class="bg-neutral/5 p-3 rounded-lg border border-neutral/10">
                             <div class="flex justify-between items-center">
-                                <span class="font-medium">Total today:</span>
+                                <span class="font-medium">{{ __('product.total_today') }}:</span>
                                 <span class="text-lg font-semibold text-primary">{{ $total }}</span>
                             </div>
 
