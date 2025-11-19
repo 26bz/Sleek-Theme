@@ -1,6 +1,8 @@
+@props(['navTopStyle' => null])
+
 <nav
     class="w-full bg-background-secondary border-b border-neutral/20 md:h-16 flex md:flex-row flex-col justify-between fixed top-0 z-20"
-    style="{{ $navTopStyle }}">
+    @if ($navTopStyle) style="{{ $navTopStyle }}" @endif>
     <div x-data="{
         slideOverOpen: false
     }" x-init="$watch('slideOverOpen', value => { document.documentElement.style.overflow = value ? 'hidden' : '' })" class="relative z-50 w-full h-auto">
